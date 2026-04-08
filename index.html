@@ -18,12 +18,20 @@
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         html, body { height: 100%; }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-light); 
             display: flex; flex-direction: column; align-items: center;
             overflow-x: hidden;
-            padding-bottom: 160px; /* مساحة للوحة التحكم الثابتة */
+            overflow-y: auto;
+            min-height: 100vh;
+            padding-bottom: 320px; /* ✅ تم الزيادة من 160px إلى 320px */
         }
 
         .top-header {
@@ -39,18 +47,19 @@
             background: white; border-radius: 50%; padding: 4px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 5;
             border: 3px solid var(--accent-gold);
-            animation: pulse 2s infinite;
-        }
+            animation: pulse 2s infinite;        }
         @keyframes pulse {
             0%, 100% { box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
             50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); }
         }
         .logo-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        /* 🎯 تصميم متجاوب ذكي حتى 900px */        .main-container { 
+        /* 🎯 تصميم متجاوب ذكي حتى 900px */
+        .main-container { 
             width: 92%; max-width: 480px; margin-top: 45px; 
             display: flex; flex-direction: column; gap: 15px; 
-            padding-bottom: 20px;
+            padding-bottom: 60px; /* ✅ تم الزيادة من 20px إلى 60px */
+            margin-bottom: 30px; /* ✅ إضافة margin-bottom */
         }
         @media (min-width: 768px) {
             .main-container { max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -87,7 +96,6 @@
             transition: var(--transition);
         }
         .selector-box select:focus { background: #f0f7f2; box-shadow: 0 0 0 3px rgba(30, 77, 43, 0.1); }
-
         .countdown-timer {
             background: var(--primary-green); color: white; padding: 15px; border-radius: 18px;
             text-align: center; border: 2px solid var(--accent-gold);
@@ -96,7 +104,8 @@
         }
         .countdown-timer::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            animation: shimmer 3s infinite;
         }
         @keyframes shimmer { 100% { left: 100%; } }
         .countdown-timer span#timer { color: var(--accent-gold); font-weight: 900; font-size: 1.4rem; letter-spacing: 1px; }
@@ -120,11 +129,12 @@
         /* 🎛️ لوحة التحكم الثابتة أسفل الشاشة */
         .fixed-controls {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
-            padding: 12px 15px; z-index: 1000;
-            border-top: 2px solid var(--accent-gold);
+            background: rgba(255, 255, 255, 0.98); /* ✅ زيادة الشفافية */
+            backdrop-filter: blur(15px); /* ✅ زيادة blur */
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.12); /* ✅ زيادة الظل */
+            padding: 15px 15px 25px 15px; /* ✅ زيادة padding */
+            z-index: 1000;
+            border-top: 3px solid var(--accent-gold); /* ✅ زيادة سمك الحدود */
         }
         .controls-grid {
             max-width: 900px; margin: 0 auto;
@@ -135,8 +145,7 @@
 
         .control-btn {
             background: white; border: 2px solid #e0e0e0;
-            padding: 11px 10px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 11px 10px; border-radius: 12px;            display: flex; align-items: center; justify-content: center; gap: 8px;
             font-family: 'Tajawal'; font-weight: 700;
             color: var(--primary-green); cursor: pointer;
             transition: var(--transition); font-size: 0.85rem;
@@ -145,7 +154,8 @@
             background: var(--primary-green); color: white;
             border-color: var(--accent-gold);
             box-shadow: 0 4px 12px rgba(30, 77, 43, 0.3);
-        }        .control-btn i { font-size: 1rem; }
+        }
+        .control-btn i { font-size: 1rem; }
         .control-btn:hover { transform: translateY(-2px); }
 
         .voice-select {
@@ -156,7 +166,7 @@
             color: var(--primary-green); cursor: pointer;
             transition: var(--transition); font-size: 0.9rem;
             width: 100%; appearance: none;
-            background-image: url("image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e4d2b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e4d2b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: left 10px center;
             background-size: 16px;
@@ -170,7 +180,7 @@
         }
 
         .sound-toggle {
-            position: fixed; bottom: 150px; left: 20px;
+            position: fixed; bottom: 180px; left: 20px; /* ✅ تعديل الموضع */
             background: var(--primary-green); color: white;
             width: 44px; height: 44px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
@@ -184,8 +194,7 @@
         .notification {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
             background: white; padding: 15px 25px; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border-right: 4px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);            border-right: 4px solid var(--accent-gold);
             z-index: 2000; font-weight: 600; color: var(--primary-green);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: 90%; text-align: center;
@@ -219,6 +228,36 @@
         }
         .location-status i { animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* ✅ Media Queries للتمرير الذكي */
+        @media (max-width: 480px) {
+            body {
+                padding-bottom: 340px; /* ✅ مساحة أكبر للموبايل */
+            }
+            
+            .fixed-controls {
+                padding: 12px 10px 20px 10px;
+            }
+            
+            .sound-toggle {
+                bottom: 200px; /* ✅ تعديل للموبايل */
+            }
+        }
+        @media (max-height: 700px) and (orientation: portrait) {
+            body {
+                padding-bottom: 280px; /* ✅ تقليل المساحة عند صغر الشاشة */
+            }
+            
+            .sound-toggle {
+                bottom: 160px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding-bottom: 280px; /* ✅ مساحة أقل للشاشات الكبيرة */
+            }
+        }
     </style>
 </head>
 <body>
@@ -243,7 +282,8 @@
 
 <div class="main-container">
     <div class="info-card">
-        <div class="weather-section" id="weather-box">            <div>
+        <div class="weather-section" id="weather-box">
+            <div>
                 <div class="weather-temp" id="w-temp">--°</div>
                 <div class="weather-desc" id="w-desc">جاري جلب الطقس...</div>
             </div>
@@ -252,16 +292,15 @@
         <div class="city-text">
             <h2 id="info-name">جاري التحميل...</h2>
             <p id="info-desc">نسيم الإيمان يملأ الأرجاء.</p>
-        </div>
-    </div>
+        </div>    </div>
 
     <div class="selector-box">
         <select id="city-select">
             <optgroup label="✨ مدن سياحية جديدة">
-                <option value="Abha,SA">أبها - عسير 🇸🇦</option>
+                <option value="Abha,SA">أبها - عسير 🇸</option>
                 <option value="Al-Dayer,SA">الداير بني مالك 🇸🇦</option>
                 <option value="Hawf,YE">حوف - المهرة 🇾🇪</option>
-                <option value="Ibb,YE">إب الخضراء 🇾🇪</option>
+                <option value="Ibb,YE">إب الخضراء 🇾</option>
                 <option value="Socotra,YE">سقطرى الأسطورية 🇾🇪</option>
                 <option value="Salalah,OM">ظفار - صلالة 🇴🇲</option>
             </optgroup>
@@ -292,7 +331,8 @@
                 <option value="Manama,BH">المنامة</option>
                 <option value="Amman,JO">عمان</option>
                 <option value="Beirut,LB">بيروت</option>
-                <option value="Damascus,SY">دمشق</option>                <option value="Baghdad,IQ">بغداد</option>
+                <option value="Damascus,SY">دمشق</option>
+                <option value="Baghdad,IQ">بغداد</option>
                 <option value="Khartoum,SD">الخرطوم</option>
                 <option value="Tripoli,LY">طرابلس</option>
                 <option value="Tunis,TN">تونس</option>
@@ -301,7 +341,6 @@
             </optgroup>
         </select>
     </div>
-
     <div class="countdown-timer">
         باقي على صلاة <span id="next-p-name">--</span>
         <br>
@@ -341,7 +380,8 @@
             <option value="sudais">🎤 الشيخ عبد الرحمن السديس</option>
             <option value="basit">🎤 الشيخ عبد الباسط عبد الصمد</option>
             <option value="hussary">🎤 الشيخ محمود خليل الحصري</option>
-            <option value="default">🎤 المؤذن الافتراضي</option>        </select>
+            <option value="default">🎤 المؤذن الافتراضي</option>
+        </select>
     </div>
     <div class="note-text">
         💡 يمكنك إيقاف الأذان بزر خفض الصوت أو إغلاق الشاشة/تبويب التطبيق
@@ -351,7 +391,6 @@
 <div class="sound-toggle" id="sound-btn">
     <i class="fas fa-volume-up" id="sound-icon"></i>
 </div>
-
 <script>
     const API_KEY_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
     
@@ -390,7 +429,8 @@
         "Ataq,YE": "قلب شبوة النابض، أرض الكرم والشهامة والأصالة التاريخية",
         "Aden,YE": "ثغر اليمن الباسم، مدينة الحب والتعايش والتاريخ البحري العريق",
         "Sanaa,YE": "صنعاء القديمة، مهد الحضارة وفن العمارة الفريد والجمال الخالد",
-        "Mukalla,YE": "عروس حضرموت الساحلية، حيث الأصالة تمزج بين البحر والتراث",        "Taiz,YE": "عروس الجبل، مدينة العلم والأدب وجمال الطبيعة الخلابة",
+        "Mukalla,YE": "عروس حضرموت الساحلية، حيث الأصالة تمزج بين البحر والتراث",
+        "Taiz,YE": "عروس الجبل، مدينة العلم والأدب وجمال الطبيعة الخلابة",
         "Marib,YE": "مهد الحضارة اليمنية، أرض بلقيس وسد مأرب التاريخي العظيم",
         "Al Hudaydah,YE": "ميناء اليمن الغربي، بوابة الخير وعنوان الكرم الساحلي",
         "Al Mahrah,YE": "أرض اللبان والعنبر، حيث الصحراء تلتقي بالبحر في تناغم ساحر",
@@ -399,8 +439,7 @@
     };
 
     let prayerTimes = {};
-    let isAdhanEnabled = true;
-    let isSoundOn = true;
+    let isAdhanEnabled = true;    let isSoundOn = true;
     let hasAdhanPlayed = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
     let adhanTimeout = null;
 
@@ -439,7 +478,8 @@
     }
 
     function findCityInList(detectedCity, detectedCountry) {
-        const options = Array.from(document.getElementById('city-select').options);        for (let opt of options) {
+        const options = Array.from(document.getElementById('city-select').options);
+        for (let opt of options) {
             const [city, country] = opt.value.split(',');
             if (country === detectedCountry) {
                 if (city.toLowerCase().includes(detectedCity.toLowerCase()) || 
@@ -448,8 +488,7 @@
                 }
             }
         }
-        const fallback = {
-            'mecca':'Makkah,SA','makkah':'Makkah,SA','medina':'Madinah,SA','madinah':'Madinah,SA',
+        const fallback = {            'mecca':'Makkah,SA','makkah':'Makkah,SA','medina':'Madinah,SA','madinah':'Madinah,SA',
             'sana':'Sanaa,YE','sanaa':'Sanaa,YE','aden':'Aden,YE','riyadh':'Riyadh,SA',
             'cairo':'Cairo,EG','abha':'Abha,SA','salalah':'Salalah,OM','socotra':'Socotra,YE','ibb':'Ibb,YE'
         };
@@ -488,7 +527,8 @@
 
     async function fallbackToIP(resolve) {
         try {
-            document.getElementById('loc-text').textContent = "🌐 البحث عبر الشبكة...";            const res = await fetch('https://ipapi.co/json/');
+            document.getElementById('loc-text').textContent = "🌐 البحث عبر الشبكة...";
+            const res = await fetch('https://ipapi.co/json/');
             const data = await res.json();
             const options = Array.from(document.getElementById('city-select').options);
             const match = options.find(opt => {
@@ -497,8 +537,7 @@
             });
             resolve(match ? match.value : null);
         } catch { resolve(null); }
-        finally { document.getElementById('loc-status').style.display = 'none'; }
-    }
+        finally { document.getElementById('loc-status').style.display = 'none'; }    }
 
     async function init() {
         const savedCity = localStorage.getItem('userCity');
@@ -547,8 +586,7 @@
             document.getElementById('w-icon').innerHTML = `<img src="https://openweathermap.org/img/wn/${wData.weather[0].icon}@2x.png" width="50" alt="طقس">`;
         } catch { document.getElementById('w-desc').innerText = "⚠️ الطقس غير متاح"; }
 
-        try {
-            const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
+        try {            const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
             if (!pRes.ok) throw new Error();
             const pData = await pRes.json();
             prayerTimes = pData.data.timings;
@@ -586,7 +624,8 @@
     }
 
     function format12Time(t) {
-        let [h, m] = t.split(':'); h = parseInt(h);        return `${h % 12 || 12}:${m} ${h >= 12 ? "م" : "ص"}`;
+        let [h, m] = t.split(':'); h = parseInt(h);
+        return `${h % 12 || 12}:${m} ${h >= 12 ? "م" : "ص"}`;
     }
 
     function checkAdhanTrigger(nextName, diff) {
@@ -596,8 +635,7 @@
         if (diff > 0 && diff <= 120000 && isAdhanEnabled && !adhanTimeout) {
             adhanTimeout = setTimeout(() => {
                 const names = { Fajr: "الفجر", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" };
-                showNotification(`⏰ باقي دقيقتان على ${names[nextName]}`, 'info');
-                adhanTimeout = null;
+                showNotification(`⏰ باقي دقيقتان على ${names[nextName]}`, 'info');                adhanTimeout = null;
             }, diff - 120000);
         }
     }
@@ -635,7 +673,8 @@
         btn.classList.toggle('muted', !isSoundOn);
     }
 
-    document.addEventListener('visibilitychange', () => {        if (document.hidden && !adhanAudio.paused) stopAdhan();
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && !adhanAudio.paused) stopAdhan();
     });
 
     function resetDailyFlags() {
@@ -646,7 +685,6 @@
         }
         setTimeout(resetDailyFlags, 60000);
     }
-
     document.getElementById('city-select').onchange = getData;
     document.getElementById('open-cal').onclick = () => document.getElementById('cal-modal').classList.add('active');
     document.getElementById('adhan-toggle').onclick = function() {
@@ -677,6 +715,11 @@
         updateAdhanVoice();
         showNotification(`🎤 تم تغيير صوت المؤذن`, 'info');
     };
+
+    // ✅ التأكد من أن الصفحة لا تقفز عند التحميل
+    window.addEventListener('load', () => {
+        document.body.style.scrollBehavior = 'smooth';
+    });
 
     setTimeout(() => {
         if (!localStorage.getItem('firstVisit')) {
