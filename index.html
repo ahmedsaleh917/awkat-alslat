@@ -19,19 +19,15 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         html, body { height: 100%; }
         
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
         
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-light); 
             display: flex; flex-direction: column; align-items: center;
-            overflow-x: hidden;
-            overflow-y: auto;
+            overflow-x: hidden; overflow-y: auto;
             min-height: 100vh;
-            padding-bottom: 320px; /* ✅ تم الزيادة من 160px إلى 320px */
+            padding-bottom: 280px;
         }
 
         .top-header {
@@ -47,19 +43,17 @@
             background: white; border-radius: 50%; padding: 4px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 5;
             border: 3px solid var(--accent-gold);
-            animation: pulse 2s infinite;        }
+            animation: pulse 2s infinite;
+        }
         @keyframes pulse {
             0%, 100% { box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
-            50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); }
-        }
+            50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); }        }
         .logo-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        /* 🎯 تصميم متجاوب ذكي حتى 900px */
         .main-container { 
             width: 92%; max-width: 480px; margin-top: 45px; 
             display: flex; flex-direction: column; gap: 15px; 
-            padding-bottom: 60px; /* ✅ تم الزيادة من 20px إلى 60px */
-            margin-bottom: 30px; /* ✅ إضافة margin-bottom */
+            padding-bottom: 60px; margin-bottom: 30px;
         }
         @media (min-width: 768px) {
             .main-container { max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -96,13 +90,13 @@
             transition: var(--transition);
         }
         .selector-box select:focus { background: #f0f7f2; box-shadow: 0 0 0 3px rgba(30, 77, 43, 0.1); }
+        
         .countdown-timer {
             background: var(--primary-green); color: white; padding: 15px; border-radius: 18px;
             text-align: center; border: 2px solid var(--accent-gold);
             box-shadow: 0 6px 15px rgba(30, 77, 43, 0.2);
             position: relative; overflow: hidden;
-        }
-        .countdown-timer::before {
+        }        .countdown-timer::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
             animation: shimmer 3s infinite;
@@ -129,12 +123,12 @@
         /* 🎛️ لوحة التحكم الثابتة أسفل الشاشة */
         .fixed-controls {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.98); /* ✅ زيادة الشفافية */
-            backdrop-filter: blur(15px); /* ✅ زيادة blur */
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.12); /* ✅ زيادة الظل */
-            padding: 15px 15px 25px 15px; /* ✅ زيادة padding */
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.12);
+            padding: 15px 15px 25px 15px;
             z-index: 1000;
-            border-top: 3px solid var(--accent-gold); /* ✅ زيادة سمك الحدود */
+            border-top: 3px solid var(--accent-gold);
         }
         .controls-grid {
             max-width: 900px; margin: 0 auto;
@@ -145,33 +139,18 @@
 
         .control-btn {
             background: white; border: 2px solid #e0e0e0;
-            padding: 11px 10px; border-radius: 12px;            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 11px 10px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             font-family: 'Tajawal'; font-weight: 700;
             color: var(--primary-green); cursor: pointer;
             transition: var(--transition); font-size: 0.85rem;
         }
-        .control-btn.active {
-            background: var(--primary-green); color: white;
+        .control-btn.active {            background: var(--primary-green); color: white;
             border-color: var(--accent-gold);
             box-shadow: 0 4px 12px rgba(30, 77, 43, 0.3);
         }
         .control-btn i { font-size: 1rem; }
         .control-btn:hover { transform: translateY(-2px); }
-
-        .voice-select {
-            grid-column: 1 / -1;
-            background: white; border: 2px solid #e0e0e0;
-            padding: 10px 15px; border-radius: 12px;
-            font-family: 'Tajawal'; font-weight: 700;
-            color: var(--primary-green); cursor: pointer;
-            transition: var(--transition); font-size: 0.9rem;
-            width: 100%; appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e4d2b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: left 10px center;
-            background-size: 16px;
-        }
-        .voice-select:focus { border-color: var(--accent-gold); outline: none; }
 
         .note-text {
             font-size: 0.72rem; color: #666; text-align: center;
@@ -179,28 +158,17 @@
             border-radius: 8px; margin-top: 4px;
         }
 
-        .sound-toggle {
-            position: fixed; bottom: 180px; left: 20px; /* ✅ تعديل الموضع */
-            background: var(--primary-green); color: white;
-            width: 44px; height: 44px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 1001; 
-            border: 2px solid var(--accent-gold);
-            transition: var(--transition); cursor: pointer;
-        }
-        .sound-toggle:hover { transform: scale(1.1); }
-        .sound-toggle.muted { background: #666; }
-
         .notification {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
             background: white; padding: 15px 25px; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);            border-right: 4px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-right: 4px solid var(--accent-gold);
             z-index: 2000; font-weight: 600; color: var(--primary-green);
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: 90%; text-align: center;
         }
         .notification.show { transform: translateX(-50%) translateY(0); }
-        .notification.adhan { 
+        .notification.prayer { 
             background: linear-gradient(135deg, var(--primary-green), #0d2818); 
             color: white; border-color: var(--accent-gold); 
         }
@@ -226,37 +194,17 @@
             background: rgba(0,0,0,0.2); padding: 4px 10px; border-radius: 20px;
             width: fit-content;
         }
-        .location-status i { animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .location-status i { animation: spin 1s linear infinite; }        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* ✅ Media Queries للتمرير الذكي */
         @media (max-width: 480px) {
-            body {
-                padding-bottom: 340px; /* ✅ مساحة أكبر للموبايل */
-            }
-            
-            .fixed-controls {
-                padding: 12px 10px 20px 10px;
-            }
-            
-            .sound-toggle {
-                bottom: 200px; /* ✅ تعديل للموبايل */
-            }
+            body { padding-bottom: 300px; }
+            .fixed-controls { padding: 12px 10px 20px 10px; }
         }
         @media (max-height: 700px) and (orientation: portrait) {
-            body {
-                padding-bottom: 280px; /* ✅ تقليل المساحة عند صغر الشاشة */
-            }
-            
-            .sound-toggle {
-                bottom: 160px;
-            }
+            body { padding-bottom: 260px; }
         }
-
         @media (min-width: 768px) {
-            body {
-                padding-bottom: 280px; /* ✅ مساحة أقل للشاشات الكبيرة */
-            }
+            body { padding-bottom: 240px; }
         }
     </style>
 </head>
@@ -292,27 +240,27 @@
         <div class="city-text">
             <h2 id="info-name">جاري التحميل...</h2>
             <p id="info-desc">نسيم الإيمان يملأ الأرجاء.</p>
-        </div>    </div>
+        </div>
+    </div>
 
-    <div class="selector-box">
+    <!-- ✅ تم إعادة ترتيب المدن حسب طلبك -->    <div class="selector-box">
         <select id="city-select">
-            <optgroup label="✨ مدن سياحية جديدة">
-                <option value="Abha,SA">أبها - عسير 🇸</option>
-                <option value="Al-Dayer,SA">الداير بني مالك 🇸🇦</option>
-                <option value="Hawf,YE">حوف - المهرة 🇾🇪</option>
-                <option value="Ibb,YE">إب الخضراء 🇾</option>
-                <option value="Socotra,YE">سقطرى الأسطورية 🇾🇪</option>
-                <option value="Salalah,OM">ظفار - صلالة 🇴🇲</option>
-            </optgroup>
+            <!-- 1️⃣ المقدسات أولاً -->
             <optgroup label="🕋 المقدسات">
                 <option value="Makkah,SA">مكة المكرمة</option>
                 <option value="Madinah,SA">المدينة المنورة</option>
                 <option value="Jerusalem,PS">القدس الشريف</option>
             </optgroup>
-            <optgroup label="🇾🇪 الجمهورية اليمنية">
-                <option value="Ataq,YE">شبوة</option>
+            
+            <!-- 2️⃣ شبوة، عدن، صنعاء -->
+            <optgroup label="🇾🇪 مدن يمنية رئيسية">
+                <option value="Ataq,YE">شبوة - عتق</option>
                 <option value="Aden,YE">عدن</option>
                 <option value="Sanaa,YE">صنعاء</option>
+            </optgroup>
+            
+            <!-- 3️⃣ باقي المدن اليمنية -->
+            <optgroup label="🏔️ باقي المدن اليمنية">
                 <option value="Mukalla,YE">المكلا</option>
                 <option value="Taiz,YE">تعز</option>
                 <option value="Marib,YE">مأرب</option>
@@ -321,6 +269,18 @@
                 <option value="Saada,YE">صعدة</option>
                 <option value="Dhamar,YE">ذمار</option>
             </optgroup>
+            
+            <!-- 4️⃣ المناطق السياحية -->
+            <optgroup label="✨ مناطق سياحية">
+                <option value="Abha,SA">أبها - عسير 🇸🇦</option>
+                <option value="Al-Dayer,SA">الداير بني مالك 🇸🇦</option>
+                <option value="Hawf,YE">حوف - المهرة 🇾🇪</option>
+                <option value="Ibb,YE">إب الخضراء 🇾🇪</option>
+                <option value="Socotra,YE">سقطرى الأسطورية 🇾🇪</option>
+                <option value="Salalah,OM">ظفار - صلالة 🇴🇲</option>
+            </optgroup>
+            
+            <!-- 5️⃣ العواصم العربية -->
             <optgroup label="🌍 العواصم العربية">
                 <option value="Riyadh,SA">الرياض</option>
                 <option value="Cairo,EG">القاهرة</option>
@@ -332,8 +292,7 @@
                 <option value="Amman,JO">عمان</option>
                 <option value="Beirut,LB">بيروت</option>
                 <option value="Damascus,SY">دمشق</option>
-                <option value="Baghdad,IQ">بغداد</option>
-                <option value="Khartoum,SD">الخرطوم</option>
+                <option value="Baghdad,IQ">بغداد</option>                <option value="Khartoum,SD">الخرطوم</option>
                 <option value="Tripoli,LY">طرابلس</option>
                 <option value="Tunis,TN">تونس</option>
                 <option value="Algiers,DZ">الجزائر</option>
@@ -341,6 +300,7 @@
             </optgroup>
         </select>
     </div>
+    
     <div class="countdown-timer">
         باقي على صلاة <span id="next-p-name">--</span>
         <br>
@@ -367,55 +327,22 @@
 <!-- 🎛️ لوحة التحكم الثابتة أسفل الشاشة -->
 <div class="fixed-controls">
     <div class="controls-grid">
-        <button class="control-btn active" id="adhan-toggle">
+        <button class="control-btn active" onclick="showNotification('✅ سيتم تفعيل التنبيهات النصية عند وقت الصلاة', 'info')">
             <i class="fas fa-bell"></i>
-            <span>تفعيل المؤذن</span>
+            <span>تنبيهات الصلاة</span>
         </button>
-        <button class="control-btn active" id="sound-toggle">
+        <button class="control-btn" onclick="showNotification('🔔 ميزة الأذان الصوتي تتطلب تطبيقاً أصلياً (Native)', 'info')">
             <i class="fas fa-volume-up"></i>
-            <span>صوت الأذان</span>
+            <span>الأذان الصوتي</span>
         </button>
-        <select id="adhan-voice" class="voice-select">
-            <option value="qatami">🎤 الشيخ ناصر القطامي (مفضل)</option>
-            <option value="sudais">🎤 الشيخ عبد الرحمن السديس</option>
-            <option value="basit">🎤 الشيخ عبد الباسط عبد الصمد</option>
-            <option value="hussary">🎤 الشيخ محمود خليل الحصري</option>
-            <option value="default">🎤 المؤذن الافتراضي</option>
-        </select>
     </div>
     <div class="note-text">
-        💡 يمكنك إيقاف الأذان بزر خفض الصوت أو إغلاق الشاشة/تبويب التطبيق
+        💡 التطبيق يعمل بدقة لعرض المواقيت والطقس. لتنبيهات خلفية موثوقة، نوصي باستخدام تطبيق الهاتف الأصلي.
     </div>
 </div>
 
-<div class="sound-toggle" id="sound-btn">
-    <i class="fas fa-volume-up" id="sound-icon"></i>
-</div>
-<script>
-    const API_KEY_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
+<script>    const API_KEY_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
     
-    // 🎙️ مكتبة أصوات الأذان الموثوقة (روابط مباشرة لملفات MP3)
-    const adhanVoices = {
-        qatami: "https://server10.mp3quran.net/qtm/adhan.mp3",
-        sudais: "https://server8.mp3quran.net/sds/adhan.mp3",
-        basit: "https://server7.mp3quran.net/basit/adhan.mp3",
-        hussary: "https://server11.mp3quran.net/husr/adhan.mp3",
-        default: "https://www.islamcan.com/common/adhan/adhan1.mp3"
-    };
-
-    let currentVoice = localStorage.getItem('adhanVoice') || 'qatami';
-    let adhanAudio = new Audio(adhanVoices[currentVoice]);
-    adhanAudio.preload = 'auto';
-
-    // 🛡️ حماية ذكية: إذا تعطل أي رابط، ينتقل تلقائياً للافتراضي
-    adhanAudio.addEventListener('error', () => {
-        console.log("⚠️ رابط المؤذن غير متاح، التبديل الآمن...");
-        adhanAudio.src = adhanVoices.default;
-        adhanAudio.load();
-    });
-
-    document.getElementById('adhan-voice').value = currentVoice;
-
     const cityDescriptions = {
         "Abha,SA": "لؤلؤة الجنوب الباسمة، حيث الجبال الخضراء تلامس السحاب والهواء العليل يبعث الحياة في كل نفس",
         "Al-Dayer,SA": "واحة الجمال بين الجبال الشاهقة، وشواهد التاريخ تحكي عراقة الأجداد وكرم الضيافة",
@@ -439,42 +366,13 @@
     };
 
     let prayerTimes = {};
-    let isAdhanEnabled = true;    let isSoundOn = true;
-    let hasAdhanPlayed = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
-    let adhanTimeout = null;
-
-    function updateAdhanVoice() {
-        const newSrc = adhanVoices[currentVoice];
-        if (!newSrc) return;
-        adhanAudio.pause();
-        adhanAudio.src = newSrc;
-        adhanAudio.load();
-        if (isSoundOn) { adhanAudio.play().then(() => adhanAudio.pause()).catch(()=>{}); }
-    }
+    let hasNotified = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
 
     function showNotification(message, type = 'info') {
         const notif = document.getElementById('notification');
         notif.textContent = message;
         notif.className = `notification ${type} show`;
         setTimeout(() => notif.classList.remove('show'), 4500);
-    }
-
-    function playAdhan(prayerName) {
-        if (!isAdhanEnabled || !isSoundOn || hasAdhanPlayed[prayerName]) return;
-        
-        showNotification(`🕌 حان وقت صلاة ${prayerName}`, 'adhan');
-        adhanAudio.play().then(() => {
-            hasAdhanPlayed[prayerName] = true;
-            showNotification(`🔊 جاري تشغيل الأذان: ${prayerName}`, 'adhan');
-        }).catch(() => {
-            showNotification('🔕 يرجى التفاعل مع الصفحة أولاً لتفعيل الصوت', 'info');
-        });
-    }
-
-    function stopAdhan() {
-        adhanAudio.pause();
-        adhanAudio.currentTime = 0;
-        showNotification('🔇 تم إيقاف الأذان', 'info');
     }
 
     function findCityInList(detectedCity, detectedCountry) {
@@ -488,11 +386,11 @@
                 }
             }
         }
-        const fallback = {            'mecca':'Makkah,SA','makkah':'Makkah,SA','medina':'Madinah,SA','madinah':'Madinah,SA',
+        const fallback = {
+            'mecca':'Makkah,SA','makkah':'Makkah,SA','medina':'Madinah,SA','madinah':'Madinah,SA',
             'sana':'Sanaa,YE','sanaa':'Sanaa,YE','aden':'Aden,YE','riyadh':'Riyadh,SA',
             'cairo':'Cairo,EG','abha':'Abha,SA','salalah':'Salalah,OM','socotra':'Socotra,YE','ibb':'Ibb,YE'
-        };
-        const key = detectedCity.toLowerCase().replace(/[^a-z]/g, '');
+        };        const key = detectedCity.toLowerCase().replace(/[^a-z]/g, '');
         return fallback[key] || null;
     }
 
@@ -537,23 +435,11 @@
             });
             resolve(match ? match.value : null);
         } catch { resolve(null); }
-        finally { document.getElementById('loc-status').style.display = 'none'; }    }
+        finally { document.getElementById('loc-status').style.display = 'none'; }
+    }
 
     async function init() {
         const savedCity = localStorage.getItem('userCity');
-        const savedAdhan = localStorage.getItem('adhanEnabled');
-        const savedSound = localStorage.getItem('soundEnabled');
-
-        if (savedAdhan !== null) {
-            isAdhanEnabled = savedAdhan === 'true';
-            document.getElementById('adhan-toggle').classList.toggle('active', isAdhanEnabled);
-        }
-        if (savedSound !== null) {
-            isSoundOn = savedSound === 'true';
-            document.getElementById('sound-toggle').classList.toggle('active', isSoundOn);
-            updateSoundIcon();
-        }
-
         let cityToLoad = savedCity;
         if (!cityToLoad) {
             cityToLoad = await detectUserLocation();
@@ -573,8 +459,7 @@
         const select = document.getElementById('city-select');
         const cityVal = select.value;
         localStorage.setItem('userCity', cityVal);
-        hasAdhanPlayed = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
-        adhanTimeout = null;
+        hasNotified = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
 
         const [city, country] = cityVal.split(',');
         try {
@@ -586,7 +471,8 @@
             document.getElementById('w-icon').innerHTML = `<img src="https://openweathermap.org/img/wn/${wData.weather[0].icon}@2x.png" width="50" alt="طقس">`;
         } catch { document.getElementById('w-desc').innerText = "⚠️ الطقس غير متاح"; }
 
-        try {            const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
+        try {
+            const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
             if (!pRes.ok) throw new Error();
             const pData = await pRes.json();
             prayerTimes = pData.data.timings;
@@ -602,8 +488,7 @@
         document.getElementById('info-desc').innerText = cityDescriptions[cityKey] || "مدينة عربية كريمة نعتز بها.";
         document.getElementById('header-date').innerText = `${dateData.hijri.day} ${dateData.hijri.month.ar} ${dateData.hijri.year}`;
         document.getElementById('modal-hijri').innerText = document.getElementById('header-date').innerText;
-        document.getElementById('modal-greg').innerText = dateData.gregorian.date;
-    }
+        document.getElementById('modal-greg').innerText = dateData.gregorian.date;    }
 
     function renderPrayers() {
         const list = document.getElementById('prayer-list');
@@ -628,15 +513,11 @@
         return `${h % 12 || 12}:${m} ${h >= 12 ? "م" : "ص"}`;
     }
 
-    function checkAdhanTrigger(nextName, diff) {
-        if (diff <= 0 && diff > -60 && isAdhanEnabled && !hasAdhanPlayed[nextName]) {
-            playAdhan(nextName);
-        }
-        if (diff > 0 && diff <= 120000 && isAdhanEnabled && !adhanTimeout) {
-            adhanTimeout = setTimeout(() => {
-                const names = { Fajr: "الفجر", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" };
-                showNotification(`⏰ باقي دقيقتان على ${names[nextName]}`, 'info');                adhanTimeout = null;
-            }, diff - 120000);
+    function checkPrayerNotification(nextName, diff) {
+        if (diff <= 0 && diff > -300 && !hasNotified[nextName]) {
+            showNotification(`🕌 حان وقت صلاة ${nextName === 'Fajr' ? 'الفجر' : nextName === 'Dhuhr' ? 'الظهر' : nextName === 'Asr' ? 'العصر' : nextName === 'Maghrib' ? 'المغرب' : 'العشاء'}`, 'prayer');
+            hasNotified[nextName] = true;
+            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
         }
     }
 
@@ -656,8 +537,7 @@
             next = { name: "Fajr", time: pTime };
         }
 
-        const diff = next.time - now;
-        checkAdhanTrigger(next.name, diff);
+        const diff = next.time - now;        checkPrayerNotification(next.name, diff);
 
         const h = Math.floor(diff / 3600000);
         const m = Math.floor((diff % 3600000) / 60000);
@@ -666,67 +546,28 @@
         document.getElementById('next-p-name').innerText = { Fajr: "الفجر", Dhuhr: "الظهر", Asr: "العصر", Maghrib: "المغرب", Isha: "العشاء" }[next.name];
     }
 
-    function updateSoundIcon() {
-        const icon = document.getElementById('sound-icon');
-        const btn = document.getElementById('sound-btn');
-        icon.className = isSoundOn ? 'fas fa-volume-up' : 'fas fa-volume-mute';
-        btn.classList.toggle('muted', !isSoundOn);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden && !adhanAudio.paused) stopAdhan();
-    });
-
     function resetDailyFlags() {
         const now = new Date();
         if (now.getHours() === 0 && now.getMinutes() === 0) {
-            hasAdhanPlayed = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
-            adhanTimeout = null;
+            hasNotified = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
         }
         setTimeout(resetDailyFlags, 60000);
     }
+    
     document.getElementById('city-select').onchange = getData;
     document.getElementById('open-cal').onclick = () => document.getElementById('cal-modal').classList.add('active');
-    document.getElementById('adhan-toggle').onclick = function() {
-        isAdhanEnabled = !isAdhanEnabled;
-        localStorage.setItem('adhanEnabled', isAdhanEnabled);
-        this.classList.toggle('active', isAdhanEnabled);
-        showNotification(isAdhanEnabled ? '🔔 المؤذن مفعل' : '🔕 المؤذن معطل', 'info');
-        if (!isAdhanEnabled) hasAdhanPlayed = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
-    };
-    document.getElementById('sound-toggle').onclick = function() {
-        isSoundOn = !isSoundOn;
-        localStorage.setItem('soundEnabled', isSoundOn);
-        this.classList.toggle('active', isSoundOn);
-        updateSoundIcon();
-        if(isSoundOn) { adhanAudio.play().then(() => adhanAudio.pause()).catch(()=>{}); }
-        showNotification(isSoundOn ? '🔊 الصوت مفعل' : '🔇 الصوت مكتوم', 'info');
-    };
-    document.getElementById('sound-btn').onclick = function() {
-        isSoundOn = !isSoundOn;
-        localStorage.setItem('soundEnabled', isSoundOn);
-        document.getElementById('sound-toggle').classList.toggle('active', isSoundOn);
-        updateSoundIcon();
-        showNotification(isSoundOn ? '🔊 الصوت مفعل' : '🔇 الصوت مكتوم', 'info');
-    };
-    document.getElementById('adhan-voice').onchange = function() {
-        currentVoice = this.value;
-        localStorage.setItem('adhanVoice', currentVoice);
-        updateAdhanVoice();
-        showNotification(`🎤 تم تغيير صوت المؤذن`, 'info');
-    };
 
-    // ✅ التأكد من أن الصفحة لا تقفز عند التحميل
     window.addEventListener('load', () => {
         document.body.style.scrollBehavior = 'smooth';
     });
 
     setTimeout(() => {
         if (!localStorage.getItem('firstVisit')) {
-            showNotification('✨ مرحباً! يمكنك التحكم في الأذان من الأزرار أسفلاً', 'info');
+            showNotification('✨ مرحباً! تطبيق صفاء الروح جاهز لعرض مواقيت الصلاة', 'info');
             localStorage.setItem('firstVisit', 'true');
         }
     }, 1500);
+    
     init();
     setInterval(updateCountdown, 1000);
     resetDailyFlags();
