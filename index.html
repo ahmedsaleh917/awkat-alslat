@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1e4d2b">
+    <meta name="description" content="تطبيق صفاء الروح - مواقيت الصلاة والطقس مع الأذان">
     <title>مواقيت الصلاة والطقس | صفاء الروح</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/zGSvxgCn/1775323811617.png">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
@@ -17,7 +24,7 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        html, body { height: 100%; }
+        html, body { height: 100%; text-align: center; }
         
         html { scroll-behavior: smooth; overflow-x: hidden; }
         
@@ -27,125 +34,72 @@
             display: flex; flex-direction: column; align-items: center;
             overflow-x: hidden; overflow-y: auto;
             min-height: 100vh;
-            padding-bottom: 280px;
+            padding-bottom: 320px;
         }
 
-        /*  شاشة عدم الاتصال بالإنترنت */
+        /* 🚫 شاشة عدم الاتصال بالإنترنت */
         .offline-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 20px;
+            display: none; justify-content: center; align-items: center;
+            z-index: 9999; padding: 20px; text-align: center;
         }
-
-        .offline-screen.active {
-            display: flex;
-            animation: fadeIn 0.4s ease-in-out;        }
-
+        .offline-screen.active { display: flex; animation: fadeIn 0.4s ease-in-out; }
         .offline-content {
-            background: white;
-            border-radius: 30px;
-            padding: 40px 30px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            background: white; border-radius: 30px; padding: 40px 30px;
+            max-width: 400px; width: 90%;            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
             border: 3px solid var(--accent-gold);
             animation: slideUp 0.5s ease-out;
         }
-
         .offline-icon {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px; margin: 0 auto 25px;
             background: linear-gradient(135deg, var(--primary-green), #2e7d32);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 10px 30px rgba(30, 77, 43, 0.3);
         }
-
-        .offline-icon i {
-            font-size: 50px;
-            color: white;
-        }
-
-        .offline-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--primary-green);
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .offline-message {
-            font-size: 1rem;
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
+        .offline-icon i { font-size: 50px; color: white; }
+        .offline-title { font-size: 1.8rem; font-weight: 900; color: var(--primary-green); margin: 15px 0; }
+        .offline-message { font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 20px; }
         .offline-hint {
-            background: #fff3cd;
-            border-right: 4px solid var(--accent-gold);
-            padding: 12px 15px;            border-radius: 10px;
-            font-size: 0.9rem;
-            color: #856404;
-            margin-top: 20px;
+            background: #fff3cd; border-right: 4px solid var(--accent-gold);
+            padding: 12px 15px; border-radius: 10px; font-size: 0.9rem; color: #856404;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         .top-header {
             background: linear-gradient(135deg, var(--primary-green), #0d2818);
-            height: 180px; width: 100%; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            height: 180px; width: 100%;
+            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             position: relative; display: flex; flex-direction: column; align-items: center; padding-top: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
-
         .nav-bar { width: 90%; display: flex; justify-content: space-between; align-items: center; color: white; }
         .logo-box {
             position: absolute; bottom: -35px; width: 80px; height: 80px;
             background: white; border-radius: 50%; padding: 4px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 5;
-            border: 3px solid var(--accent-gold);
-            animation: pulse 2s infinite;
+            border: 3px solid var(--accent-gold); animation: pulse 2s infinite;
         }
         @keyframes pulse {
             0%, 100% { box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
-            50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); }        }
+            50% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); }
+        }
         .logo-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
         .main-container { 
             width: 92%; max-width: 480px; margin-top: 45px; 
-            display: flex; flex-direction: column; gap: 15px; 
-            padding-bottom: 60px; margin-bottom: 30px;
+            display: flex; flex-direction: column; gap: 15px; padding-bottom: 60px; margin-bottom: 30px;
         }
         @media (min-width: 768px) {
             .main-container { max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
             .countdown-timer, .info-card { grid-column: span 2; }
             .prayer-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); grid-column: span 2; }
         }
-
         .info-card {
             background: white; padding: 20px; border-radius: 22px;
-            box-shadow: var(--shadow); border-right: 6px solid var(--accent-gold);            transition: var(--transition);
+            box-shadow: var(--shadow); border-right: 6px solid var(--accent-gold);
+            transition: var(--transition);
         }
         .info-card:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         
@@ -155,7 +109,6 @@
         }
         .weather-temp { font-size: 1.8rem; font-weight: 900; color: var(--primary-green); }
         .weather-desc { font-size: 0.85rem; color: #666; font-weight: 500; }
-
         .city-text h2 { margin: 0 0 8px 0; color: var(--primary-green); font-size: 1.3rem; font-weight: 900; }
         .city-text p { font-size: 0.88rem; color: #555; line-height: 1.6; }
 
@@ -164,10 +117,9 @@
             box-shadow: var(--shadow); border: 1px solid #efefef;
         }
         .selector-box select { 
-            width: 100%; border: none; font-family: 'Tajawal'; 
-            font-weight: 800; outline: none; background: #f9f9f9; 
-            color: var(--primary-green); font-size: 1rem; cursor: pointer;
-            padding: 10px; border-radius: 10px;
+            width: 100%; border: none; font-family: 'Tajawal'; font-weight: 800;
+            outline: none; background: #f9f9f9; color: var(--primary-green);
+            font-size: 1rem; cursor: pointer; padding: 10px; border-radius: 10px;
             transition: var(--transition);
         }
         .selector-box select:focus { background: #f0f7f2; box-shadow: 0 0 0 3px rgba(30, 77, 43, 0.1); }
@@ -177,7 +129,8 @@
             text-align: center; border: 2px solid var(--accent-gold);
             box-shadow: 0 6px 15px rgba(30, 77, 43, 0.2);
             position: relative; overflow: hidden;
-        }        .countdown-timer::before {
+        }
+        .countdown-timer::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
             animation: shimmer 3s infinite;
@@ -192,22 +145,21 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.03); transition: var(--transition);
             cursor: pointer;
         }
-        .prayer-item:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .prayer-item.active { 
-            border: 2px solid var(--accent-gold);             background: linear-gradient(135deg, #f0f7f2, #e8f5e9); 
+        .prayer-item:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }        .prayer-item.active { 
+            border: 2px solid var(--accent-gold);
+            background: linear-gradient(135deg, #f0f7f2, #e8f5e9);
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
         .prayer-name { font-weight: 800; color: var(--primary-green); font-size: 1rem; }
         .prayer-time { font-weight: 900; color: #333; font-size: 1.1rem; }
 
-        /* 🎛️ لوحة التحكم الثابتة أسفل الشاشة */
+        /* 🎛️ لوحة التحكم الثابتة */
         .fixed-controls {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(15px);
             box-shadow: 0 -10px 40px rgba(0,0,0,0.12);
-            padding: 15px 15px 25px 15px;
-            z-index: 1000;
+            padding: 15px 15px 25px 15px; z-index: 1000;
             border-top: 3px solid var(--accent-gold);
         }
         .controls-grid {
@@ -225,12 +177,44 @@
             color: var(--primary-green); cursor: pointer;
             transition: var(--transition); font-size: 0.85rem;
         }
-        .control-btn.active {            background: var(--primary-green); color: white;
+        .control-btn.active {
+            background: var(--primary-green); color: white;
             border-color: var(--accent-gold);
             box-shadow: 0 4px 12px rgba(30, 77, 43, 0.3);
         }
         .control-btn i { font-size: 1rem; }
         .control-btn:hover { transform: translateY(-2px); }
+
+        /* 🔔 تبديل المؤذن */
+        .muezzin-toggle {
+            display: flex; align-items: center; justify-content: center;
+            gap: 12px; padding: 8px; background: #f9f9f9;
+            border-radius: 12px; margin: 8px 0;
+        }
+        .toggle-switch {
+            position: relative; width: 50px; height: 28px;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }        .toggle-slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc; border-radius: 28px;
+            transition: var(--transition);
+        }
+        .toggle-slider:before {
+            position: absolute; content: "";
+            height: 22px; width: 22px; left: 3px; bottom: 3px;
+            background-color: white; border-radius: 50%;
+            transition: var(--transition);
+        }
+        input:checked + .toggle-slider { background-color: var(--primary-green); }
+        input:checked + .toggle-slider:before { transform: translateX(22px); }
+
+        .muezzin-select {
+            width: 100%; padding: 10px; border: 1px solid #e0e0e0;
+            border-radius: 10px; font-family: 'Tajawal'; font-weight: 700;
+            color: var(--primary-green); background: white; cursor: pointer;
+        }
+        .muezzin-select:focus { outline: none; border-color: var(--accent-gold); }
 
         .note-text {
             font-size: 0.72rem; color: #666; text-align: center;
@@ -243,7 +227,8 @@
             background: white; padding: 15px 25px; border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             border-right: 4px solid var(--accent-gold);
-            z-index: 2000; font-weight: 600; color: var(--primary-green);            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000; font-weight: 600; color: var(--primary-green);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: 90%; text-align: center;
         }
         .notification.show { transform: translateX(-50%) translateY(0); }
@@ -251,20 +236,17 @@
             background: linear-gradient(135deg, var(--primary-green), #0d2818); 
             color: white; border-color: var(--accent-gold); 
         }
+
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 3000;
             backdrop-filter: blur(5px);
         }
         .modal.active { display: flex; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .modal-content { 
-            background: white; width: 85%; max-width: 320px; border-radius: 25px; 
+        .modal-content {             background: white; width: 85%; max-width: 320px; border-radius: 25px; 
             padding: 30px; text-align: center; border-top: 8px solid var(--accent-gold);
             animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         .location-status {
             font-size: 0.72rem; color: var(--accent-gold);
@@ -273,46 +255,44 @@
             background: rgba(0,0,0,0.2); padding: 4px 10px; border-radius: 20px;
             width: fit-content;
         }
-        .location-status i { animation: spin 1s linear infinite; }        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .location-status i { animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* 🎵 مشغل الأذان المخفي */
+        #adhan-audio { display: none; }
 
         @media (max-width: 480px) {
-            body { padding-bottom: 300px; }
+            body { padding-bottom: 340px; }
             .fixed-controls { padding: 12px 10px 20px 10px; }
             .offline-content { padding: 30px 20px; }
             .offline-title { font-size: 1.5rem; }
         }
         @media (max-height: 700px) and (orientation: portrait) {
-            body { padding-bottom: 260px; }
+            body { padding-bottom: 300px; }
         }
         @media (min-width: 768px) {
-            body { padding-bottom: 240px; }
+            body { padding-bottom: 280px; }
         }
     </style>
 </head>
 <body>
 
-<!-- 🚫 شاشة عدم الاتصال بالإنترنت -->
-<div class="offline-screen" id="offline-screen">    <div class="offline-content">
-        <div class="offline-icon">
-            <i class="fas fa-wifi-slash"></i>
-        </div>
+<!-- 🚫 شاشة عدم الاتصال -->
+<div class="offline-screen" id="offline-screen">
+    <div class="offline-content">
+        <div class="offline-icon"><i class="fas fa-wifi-slash"></i></div>
         <h2 class="offline-title">عذراً، أنت لست متصلاً بالإنترنت</h2>
-        <p class="offline-message">
-            تحتاج إلى الاتصال بالإنترنت لمتابعة رحلتك التعليمية وعرض مواقيت الصلاة والطقس
-        </p>
-        <div class="offline-hint">
-            <i class="fas fa-info-circle"></i>
-            تحقق من اتصالك بالإنترنت وحاول مرة أخرى
-        </div>
+        <p class="offline-message">تحتاج إلى الاتصال بالإنترنت لعرض مواقيت الصلاة والطقس</p>
+        <div class="offline-hint"><i class="fas fa-info-circle"></i> تحقق من اتصالك وحاول مرة أخرى</div>
     </div>
 </div>
 
 <div class="notification" id="notification"></div>
 
+<!-- الهيدر الموحد -->
 <div class="top-header">
     <div class="nav-bar">
-        <i class="fas fa-location-dot"></i>
-        <h1 style="font-weight: 900; font-size: 1.3rem; letter-spacing: 1px;">صفاء الروح</h1>
+        <i class="fas fa-location-dot"></i>        <h1 style="font-weight: 900; font-size: 1.3rem; letter-spacing: 1px;">صفاء الروح</h1>
         <i class="fas fa-calendar-days" id="open-cal" style="cursor:pointer;"></i>
     </div>
     <div id="header-date" style="color: white; opacity: 0.9; margin-top: 10px; font-family:'Amiri'; font-size: 1.1rem;">--</div>
@@ -321,7 +301,7 @@
         <span id="loc-text">جاري تحديد الموقع...</span>
     </div>
     <div class="logo-box">
-        <img src="https://i.postimg.cc/zGSvxgCn/1775323811617.png" alt="Logo">
+        <img src="https://i.postimg.cc/zGSvxgCn/1775323811617.png" alt="شعار صفاء الروح">
     </div>
 </div>
 
@@ -340,22 +320,18 @@
         </div>
     </div>
 
-    <!-- ✅ تم إعادة ترتيب المدن حسب طلبك -->    <div class="selector-box">
-        <select id="city-select">            <!-- 1️⃣ المقدسات أولاً -->
+    <div class="selector-box">
+        <select id="city-select">
             <optgroup label="🕋 المقدسات">
                 <option value="Makkah,SA">مكة المكرمة</option>
                 <option value="Madinah,SA">المدينة المنورة</option>
                 <option value="Jerusalem,PS">القدس الشريف</option>
             </optgroup>
-            
-            <!-- 2️⃣ شبوة، عدن، صنعاء -->
             <optgroup label="🇾🇪 مدن يمنية رئيسية">
                 <option value="Ataq,YE">شبوة - عتق</option>
                 <option value="Aden,YE">عدن</option>
                 <option value="Sanaa,YE">صنعاء</option>
             </optgroup>
-            
-            <!-- 3️⃣ باقي المدن اليمنية -->
             <optgroup label="🏔️ باقي المدن اليمنية">
                 <option value="Mukalla,YE">المكلا</option>
                 <option value="Taiz,YE">تعز</option>
@@ -365,18 +341,13 @@
                 <option value="Saada,YE">صعدة</option>
                 <option value="Dhamar,YE">ذمار</option>
             </optgroup>
-            
-            <!-- 4️⃣ المناطق السياحية -->
-            <optgroup label="✨ مناطق سياحية">
-                <option value="Abha,SA">أبها - عسير 🇸🇦</option>
-                <option value="Al-Dayer,SA">الداير بني مالك 🇸</option>
+            <optgroup label="✨ مناطق سياحية">                <option value="Abha,SA">أبها - عسير 🇸🇦</option>
+                <option value="Al-Dayer,SA">الداير بني مالك 🇸🇦</option>
                 <option value="Hawf,YE">حوف - المهرة 🇾🇪</option>
                 <option value="Ibb,YE">إب الخضراء 🇾🇪</option>
                 <option value="Socotra,YE">سقطرى الأسطورية 🇾🇪</option>
                 <option value="Salalah,OM">ظفار - صلالة 🇴🇲</option>
             </optgroup>
-            
-            <!-- 5️⃣ العواصم العربية -->
             <optgroup label="🌍 العواصم العربية">
                 <option value="Riyadh,SA">الرياض</option>
                 <option value="Cairo,EG">القاهرة</option>
@@ -388,23 +359,25 @@
                 <option value="Amman,JO">عمان</option>
                 <option value="Beirut,LB">بيروت</option>
                 <option value="Damascus,SY">دمشق</option>
-                <option value="Baghdad,IQ">بغداد</option>                <option value="Khartoum,SD">الخرطوم</option>
+                <option value="Baghdad,IQ">بغداد</option>
+                <option value="Khartoum,SD">الخرطوم</option>
                 <option value="Tripoli,LY">طرابلس</option>
-                <option value="Tunis,TN">تونس</option>                <option value="Algiers,DZ">الجزائر</option>
+                <option value="Tunis,TN">تونس</option>
+                <option value="Algiers,DZ">الجزائر</option>
                 <option value="Rabat,MA">الرباط</option>
             </optgroup>
         </select>
     </div>
     
     <div class="countdown-timer">
-        باقي على صلاة <span id="next-p-name">--</span>
-        <br>
+        باقي على صلاة <span id="next-p-name">--</span><br>
         <span id="timer">00:00:00</span>
     </div>
 
     <div class="prayer-list" id="prayer-list"></div>
 </div>
 
+<!-- نافذة التاريخ -->
 <div class="modal" id="cal-modal">
     <div class="modal-content">
         <div style="margin-bottom:15px;">
@@ -418,28 +391,56 @@
         <button onclick="document.getElementById('cal-modal').classList.remove('active')" style="background:var(--primary-green); color:white; border:none; padding:12px 40px; border-radius:12px; font-weight:bold; cursor:pointer;">إغلاق</button>
     </div>
 </div>
-
-<!-- 🎛️ لوحة التحكم الثابتة أسفل الشاشة -->
+<!-- 🎛️ لوحة التحكم -->
 <div class="fixed-controls">
     <div class="controls-grid">
-        <button class="control-btn active" onclick="showNotification('✅ سيتم تفعيل التنبيهات النصية عند وقت الصلاة', 'info')">
-            <i class="fas fa-bell"></i>
-            <span>تنبيهات الصلاة</span>
+        <button class="control-btn active" id="btn-notif" onclick="toggleNotifications()">
+            <i class="fas fa-bell"></i><span>تنبيهات الصلاة</span>
         </button>
-        <button class="control-btn" onclick="showNotification('🔔 ميزة الأذان الصوتي تتطلب تطبيقاً أصلياً (Native)', 'info')">
-            <i class="fas fa-volume-up"></i>
-            <span>الأذان الصوتي</span>
+        <button class="control-btn" id="btn-adhan" onclick="toggleAdhan()">
+            <i class="fas fa-volume-up"></i><span>الأذان الصوتي</span>
         </button>
     </div>
+    
+    <!-- 🔀 تبديل المؤذن -->
+    <div class="muezzin-toggle" id="muezzin-panel" style="display:none;">
+        <label class="toggle-switch">
+            <input type="checkbox" id="adhan-toggle" onchange="toggleAdhanPlayback()">
+            <span class="toggle-slider"></span>
+        </label>
+        <select class="muezzin-select" id="muezzin-select" onchange="changeMuezzin()">
+            <option value="qatami">🎙️ ناصر القطامي</option>
+            <option value="alafasy">🎙️ مشاري العفاسي</option>
+            <option value="sudais">🎙️ عبدالرحمن السديس</option>
+            <option value="ghamdi">🎙️ سعد الغامدي</option>
+            <option value="muaiqly">🎙️ ماهر المعيقلي</option>
+        </select>
+    </div>
+    
     <div class="note-text">
         💡 التطبيق يعمل بدقة لعرض المواقيت والطقس. لتنبيهات خلفية موثوقة، نوصي باستخدام تطبيق الهاتف الأصلي.
     </div>
 </div>
 
-<script>    const API_KEY_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
+<!-- 🎵 مشغل الأذان -->
+<audio id="adhan-audio" preload="auto"></audio>
+
+<script>
+    // ⚙️ إعدادات التطبيق
+    const API_KEY_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
     
-    const cityDescriptions = {
-        "Abha,SA": "لؤلؤة الجنوب الباسمة، حيث الجبال الخضراء تلامس السحاب والهواء العليل يبعث الحياة في كل نفس",        "Al-Dayer,SA": "واحة الجمال بين الجبال الشاهقة، وشواهد التاريخ تحكي عراقة الأجداد وكرم الضيافة",
+    // 🎙️ روابط الأذان للمؤذنين (مصادر موثوقة)
+    const MUEZZIN_SOURCES = {
+        qatami: "https://cdn.islamway.net/s3fs-public/audio/2023-01/athan_nasser_alqatami.mp3",
+        alafasy: "https://cdn.islamway.net/s3fs-public/audio/2023-01/athan_mishary_alafasy.mp3",
+        sudais: "https://cdn.islamway.net/s3fs-public/audio/2023-01/athan_abdulrahman_sudais.mp3",
+        ghamdi: "https://cdn.islamway.net/s3fs-public/audio/2023-01/athan_saad_alghamdi.mp3",
+        muaiqly: "https://cdn.islamway.net/s3fs-public/audio/2023-01/athan_maher_almuaiqly.mp3"
+    };
+
+    // 📝 وصف المدن
+    const cityDescriptions = {        "Abha,SA": "لؤلؤة الجنوب الباسمة، حيث الجبال الخضراء تلامس السحاب والهواء العليل يبعث الحياة في كل نفس",
+        "Al-Dayer,SA": "واحة الجمال بين الجبال الشاهقة، وشواهد التاريخ تحكي عراقة الأجداد وكرم الضيافة",
         "Hawf,YE": "بوابة اليمن الشرقية، حيث تلتقي رمال الصحراء بزرقة البحر في لوحة خلابة تأخذ بالألباب",
         "Ibb,YE": "جنة اليمن الفيحاء، تكتسي خضرةً دائمةً وتزهو بمدرجاتها الزراعية الساحرة وعيونها الجارية",
         "Socotra,YE": "جنة الأرض المنعزلة، موطن شجرة الدموع وأندر الكائنات في أرخبيل أسطوري يأسر الخيال",
@@ -459,11 +460,17 @@
         "Dhamar,YE": "حاضرة العلم والعرفة، واحة الخضرة بين جبال اليمن الشاهقة"
     };
 
+    // 🗂️ متغيرات الحالة
     let prayerTimes = {};
     let hasNotified = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
     let isOnline = navigator.onLine;
+    let adhanEnabled = localStorage.getItem('adhanEnabled') === 'true';
+    let notificationsEnabled = localStorage.getItem('notificationsEnabled') !== 'false';
+    let currentMuezzin = localStorage.getItem('currentMuezzin') || 'qatami';
+    let audioContext = null;
+    let audioBuffer = null;
 
-    // 🚫 مراقبة حالة الاتصال بالإنترنت
+    // 🌐 مراقبة الاتصال
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
@@ -481,14 +488,15 @@
 
     function showNotification(message, type = 'info') {
         const notif = document.getElementById('notification');
-        notif.textContent = message;
-        notif.className = `notification ${type} show`;
+        notif.textContent = message;        notif.className = `notification ${type} show`;
         setTimeout(() => notif.classList.remove('show'), 4500);
     }
 
+    // 🔍 البحث عن المدينة في القائمة
     function findCityInList(detectedCity, detectedCountry) {
         const options = Array.from(document.getElementById('city-select').options);
-        for (let opt of options) {            const [city, country] = opt.value.split(',');
+        for (let opt of options) {
+            const [city, country] = opt.value.split(',');
             if (country === detectedCountry) {
                 if (city.toLowerCase().includes(detectedCity.toLowerCase()) || 
                     detectedCity.toLowerCase().includes(city.toLowerCase())) {
@@ -500,10 +508,12 @@
             'mecca':'Makkah,SA','makkah':'Makkah,SA','medina':'Madinah,SA','madinah':'Madinah,SA',
             'sana':'Sanaa,YE','sanaa':'Sanaa,YE','aden':'Aden,YE','riyadh':'Riyadh,SA',
             'cairo':'Cairo,EG','abha':'Abha,SA','salalah':'Salalah,OM','socotra':'Socotra,YE','ibb':'Ibb,YE'
-        };        const key = detectedCity.toLowerCase().replace(/[^a-z]/g, '');
+        };
+        const key = detectedCity.toLowerCase().replace(/[^a-z]/g, '');
         return fallback[key] || null;
     }
 
+    // 📍 تحديد الموقع
     async function detectUserLocation() {
         return new Promise((resolve) => {
             const locStatus = document.getElementById('loc-status');
@@ -527,8 +537,7 @@
                     () => { locText.textContent = "⏳ GPS غير متاح، التحويل للإنترنت..."; fallbackToIP(resolve); },
                     { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 }
                 );
-            } else {
-                fallbackToIP(resolve);
+            } else {                fallbackToIP(resolve);
             }
         });
     }
@@ -537,7 +546,8 @@
         try {
             document.getElementById('loc-text').textContent = "🌐 البحث عبر الشبكة...";
             const res = await fetch('https://ipapi.co/json/');
-            const data = await res.json();            const options = Array.from(document.getElementById('city-select').options);
+            const data = await res.json();
+            const options = Array.from(document.getElementById('city-select').options);
             const match = options.find(opt => {
                 const [c] = opt.value.split(',');
                 return c.toLowerCase().includes(data.city?.toLowerCase()) || data.city?.toLowerCase().includes(c.toLowerCase());
@@ -547,12 +557,27 @@
         finally { document.getElementById('loc-status').style.display = 'none'; }
     }
 
+    // 🔄 تهيئة التطبيق
     async function init() {
-        // التحقق من الاتصال عند البدء
+        // تسجيل Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('✅ Service Worker registered:', reg.scope))
+                .catch(err => console.log('❌ Service Worker failed:', err));
+        }
+
+        // التحقق من الاتصال
         if (!navigator.onLine) {
             handleOffline();
             return;
         }
+
+        // استعادة الإعدادات المحفوظة
+        document.getElementById('adhan-toggle').checked = adhanEnabled;
+        document.getElementById('muezzin-panel').style.display = adhanEnabled ? 'flex' : 'none';
+        document.getElementById('btn-adhan').classList.toggle('active', adhanEnabled);
+        document.getElementById('btn-notif').classList.toggle('active', notificationsEnabled);
+        document.getElementById('muezzin-select').value = currentMuezzin;
 
         const savedCity = localStorage.getItem('userCity');
         let cityToLoad = savedCity;
@@ -561,15 +586,29 @@
         }
 
         if (cityToLoad) {
-            document.getElementById('city-select').value = cityToLoad;
-            if (!savedCity) showNotification(`🎯 تم تحديد: ${document.getElementById('city-select').selectedOptions[0].text}`, 'info');
+            document.getElementById('city-select').value = cityToLoad;            if (!savedCity) showNotification(`🎯 تم تحديد: ${document.getElementById('city-select').selectedOptions[0].text}`, 'info');
         } else {
             document.getElementById('city-select').value = "Makkah,SA";
             showNotification('🕋 العرض الافتراضي: مكة المكرمة', 'info');
         }
+        
+        // تهيئة Web Audio API عند أول تفاعل
+        document.body.addEventListener('click', initAudio, { once: true });
+        
         getData();
     }
 
+    // 🎵 تهيئة مشغل الصوت
+    function initAudio() {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+    }
+
+    // 📡 جلب البيانات
     async function getData() {
         if (!navigator.onLine) {
             handleOffline();
@@ -582,18 +621,21 @@
         hasNotified = { Fajr: false, Dhuhr: false, Asr: false, Maghrib: false, Isha: false };
 
         const [city, country] = cityVal.split(',');
+        
+        // جلب الطقس
         try {
             const wRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY_WEATHER}&units=metric&lang=ar`);
             if (!wRes.ok) throw new Error();
             const wData = await wRes.json();
-            document.getElementById('w-temp').innerText = Math.round(wData.main.temp) + "°";            document.getElementById('w-desc').innerText = wData.weather[0].description;
+            document.getElementById('w-temp').innerText = Math.round(wData.main.temp) + "°";
+            document.getElementById('w-desc').innerText = wData.weather[0].description;
             document.getElementById('w-icon').innerHTML = `<img src="https://openweathermap.org/img/wn/${wData.weather[0].icon}@2x.png" width="50" alt="طقس">`;
         } catch { document.getElementById('w-desc').innerText = "⚠️ الطقس غير متاح"; }
 
+        // جلب مواقيت الصلاة
         try {
             const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
-            if (!pRes.ok) throw new Error();
-            const pData = await pRes.json();
+            if (!pRes.ok) throw new Error();            const pData = await pRes.json();
             prayerTimes = pData.data.timings;
             updateUI(cityVal, pData.data.date);
             renderPrayers();
@@ -607,7 +649,8 @@
         document.getElementById('info-desc').innerText = cityDescriptions[cityKey] || "مدينة عربية كريمة نعتز بها.";
         document.getElementById('header-date').innerText = `${dateData.hijri.day} ${dateData.hijri.month.ar} ${dateData.hijri.year}`;
         document.getElementById('modal-hijri').innerText = document.getElementById('header-date').innerText;
-        document.getElementById('modal-greg').innerText = dateData.gregorian.date;    }
+        document.getElementById('modal-greg').innerText = dateData.gregorian.date;
+    }
 
     function renderPrayers() {
         const list = document.getElementById('prayer-list');
@@ -632,18 +675,71 @@
         return `${h % 12 || 12}:${m} ${h >= 12 ? "م" : "ص"}`;
     }
 
-    function checkPrayerNotification(nextName, diff) {
-        if (diff <= 0 && diff > -300 && !hasNotified[nextName]) {
-            showNotification(`🕌 حان وقت صلاة ${nextName === 'Fajr' ? 'الفجر' : nextName === 'Dhuhr' ? 'الظهر' : nextName === 'Asr' ? 'العصر' : nextName === 'Maghrib' ? 'المغرب' : 'العشاء'}`, 'prayer');
-            hasNotified[nextName] = true;            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    // 🔔 تشغيل الأذان
+    async function playAdhan(prayerName) {
+        if (!adhanEnabled || !isOnline) return;
+        
+        initAudio();
+        const audio = document.getElementById('adhan-audio');
+        const source = MUEZZIN_SOURCES[currentMuezzin];
+        
+        try {
+            // محاولة تشغيل الأذان            audio.src = source;
+            audio.volume = 0.7;
+            await audio.play();
+            
+            showNotification(`🕌 حان وقت صلاة ${prayerName} - أذان ${getMuezzinName()}`, 'prayer');
+            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+            
+            // إيقاف الأذان بعد 90 ثانية
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 90000);
+            
+        } catch (err) {
+            console.log('Audio playback blocked:', err);
+            showNotification(`🕌 حان وقت صلاة ${prayerName}`, 'prayer');
         }
     }
 
+    function getMuezzinName() {
+        const names = {
+            qatami: 'ناصر القطامي',
+            alafasy: 'مشاري العفاسي',
+            sudais: 'عبدالرحمن السديس',
+            ghamdi: 'سعد الغامدي',
+            muaiqly: 'ماهر المعيقلي'
+        };
+        return names[currentMuezzin] || 'ناصر القطامي';
+    }
+
+    function checkPrayerNotification(nextName, diff) {
+        const arabicNames = { Fajr: 'الفجر', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
+        
+        // تنبيه قبل الصلاة بـ 5 دقائق
+        if (diff <= 300000 && diff > 0 && !hasNotified[nextName]) {
+            if (notificationsEnabled) {
+                showNotification(`⏰ باقي 5 دقائق على صلاة ${arabicNames[nextName]}`, 'info');
+            }
+        }
+        
+        // تشغيل الأذان عند وقت الصلاة
+        if (diff <= 0 && diff > -30000 && !hasNotified[nextName]) {
+            if (adhanEnabled) {
+                playAdhan(arabicNames[nextName]);
+            } else if (notificationsEnabled) {
+                showNotification(`🕌 حان وقت صلاة ${arabicNames[nextName]}`, 'prayer');
+            }
+            hasNotified[nextName] = true;
+        }
+    }
     function updateCountdown() {
         if (!prayerTimes.Fajr) return;
         const now = new Date();
         const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
         let next = null;
+        
         for (let p of prayers) {
             const [h, m] = prayerTimes[p].split(':');
             const pTime = new Date(); pTime.setHours(h, m, 0);
@@ -655,7 +751,8 @@
             next = { name: "Fajr", time: pTime };
         }
 
-        const diff = next.time - now;        checkPrayerNotification(next.name, diff);
+        const diff = next.time - now;
+        checkPrayerNotification(next.name, diff);
 
         const h = Math.floor(diff / 3600000);
         const m = Math.floor((diff % 3600000) / 60000);
@@ -671,7 +768,46 @@
         }
         setTimeout(resetDailyFlags, 60000);
     }
-    
+
+    // 🎛️ وظائف التحكم
+    function toggleNotifications() {
+        notificationsEnabled = !notificationsEnabled;
+        localStorage.setItem('notificationsEnabled', notificationsEnabled);
+        document.getElementById('btn-notif').classList.toggle('active', notificationsEnabled);
+        showNotification(notificationsEnabled ? '✅ تم تفعيل التنبيهات' : '❌ تم إيقاف التنبيهات', 'info');
+    }
+
+    function toggleAdhan() {
+        adhanEnabled = !adhanEnabled;
+        localStorage.setItem('adhanEnabled', adhanEnabled);
+        document.getElementById('btn-adhan').classList.toggle('active', adhanEnabled);
+        document.getElementById('muezzin-panel').style.display = adhanEnabled ? 'flex' : 'none';
+        document.getElementById('adhan-toggle').checked = adhanEnabled;        showNotification(adhanEnabled ? '✅ تم تفعيل الأذان الصوتي' : '❌ تم إيقاف الأذان الصوتي', 'info');
+        
+        if (adhanEnabled) {
+            initAudio(); // تهيئة الصوت عند التفعيل
+        }
+    }
+
+    function toggleAdhanPlayback() {
+        adhanEnabled = document.getElementById('adhan-toggle').checked;
+        localStorage.setItem('adhanEnabled', adhanEnabled);
+        document.getElementById('btn-adhan').classList.toggle('active', adhanEnabled);
+        showNotification(adhanEnabled ? '✅ الأذان مفعل' : '❌ الأذان معطل', 'info');
+    }
+
+    function changeMuezzin() {
+        currentMuezzin = document.getElementById('muezzin-select').value;
+        localStorage.setItem('currentMuezzin', currentMuezzin);
+        showNotification(`🎙️ تم اختيار المؤذن: ${getMuezzinName()}`, 'info');
+        
+        // تحميل مسبق للصوت الجديد
+        const audio = document.getElementById('adhan-audio');
+        audio.src = MUEZZIN_SOURCES[currentMuezzin];
+        audio.load();
+    }
+
+    // 🎯 أحداث الصفحة
     document.getElementById('city-select').onchange = getData;
     document.getElementById('open-cal').onclick = () => document.getElementById('cal-modal').classList.add('active');
 
@@ -684,7 +820,9 @@
             showNotification('✨ مرحباً! تطبيق صفاء الروح جاهز لعرض مواقيت الصلاة', 'info');
             localStorage.setItem('firstVisit', 'true');
         }
-    }, 1500);    
+    }, 1500);
+    
+    // 🚀 بدء التطبيق
     init();
     setInterval(updateCountdown, 1000);
     resetDailyFlags();
