@@ -38,9 +38,8 @@
         .main-container { width: 92%; max-width: 480px; margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
 
         .info-card {
-            background: var(--card-bg); padding: 20px; border-radius: 22px;
+            background: #2d2d2d; padding: 20px; border-radius: 22px;
             box-shadow: var(--shadow); border-right: 6px solid var(--accent-gold); text-align: right;
-            background-color: #2d2d2d;
         }
 
         .weather-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px; }
@@ -106,23 +105,48 @@
                 <div id="w-temp" class="weather-temp">--°</div>
                 <div id="w-desc" style="color:var(--text-secondary)">جاري التحميل...</div>
             </div>
-            <i class="fas fa-sun fa-3x" style="color:var(--accent-gold)"></i>
+            <i id="w-icon" class="fas fa-sun fa-3x" style="color:var(--accent-gold)"></i>
         </div>
         <h2 id="info-name" style="color:var(--accent-gold)">مواقيت الصلاة</h2>
-        <p id="info-desc" style="font-size:0.9rem; color:var(--text-secondary)">يرجى اختيار المدينة</p>
+        <p id="city-brief" style="font-size:0.9rem; color:var(--accent-gold); margin-top:5px; font-style: italic;">--</p>
     </div>
 
     <div class="selector-box">
         <select id="city-select">
-            <option value="Makkah,SA">مكة المكرمة</option>
-            <option value="Madinah,SA">المدينة المنورة</option>
-            <option value="Jerusalem,PS">القدس الشريف</option>
-            <option value="Ataq,YE">شبوة - عتق</option>
-            <option value="Aden,YE">عدن</option>
-            <option value="Sanaa,YE">صنعاء</option>
-            <option value="Mukalla,YE">المكلا</option>
-            <option value="Riyadh,SA">الرياض</option>
-            <option value="Cairo,EG">القاهرة</option>
+            <optgroup label="المقدسات">
+                <option value="Makkah,SA" data-brief="قبلة المسلمين ومهبط الوحي">مكة المكرمة</option>
+                <option value="Madinah,SA" data-brief="طيبة الطيبة ودار هجرة المصطفى">المدينة المنورة</option>
+                <option value="Jerusalem,PS" data-brief="أولى القبلتين وثالث الحرمين">القدس الشريف</option>
+            </optgroup>
+            <optgroup label="الجمهورية اليمنية">
+                <option value="Ataq,YE" data-brief="موطن التاريخ والحضارة الحميرية">شبوة</option>
+                <option value="Aden,YE" data-brief="ثغر اليمن الباسم ومدينة التعايش">عدن</option>
+                <option value="Sanaa,YE" data-brief="مدينة سام وروح اليمن العريقة">صنعاء</option>
+                <option value="Taiz,YE" data-brief="عاصمة الثقافة والجمال">تعز</option>
+                <option value="Al Mukalla,YE" data-brief="عروس بحر العرب وعاصمة حضرموت">المكلا</option>
+                <option value="Ibb,YE" data-brief="اللواء الأخضر وجنة الأرض">إب</option>
+                <option value="Al Hudaydah,YE" data-brief="عروس البحر الأحمر">الحديدة</option>
+                <option value="Marib,YE" data-brief="مملكة سبأ وعراقة الماضي">مأرب</option>
+                <option value="Dhamar,YE" data-brief="مدينة العلم والأدب">ذمار</option>
+            </optgroup>
+            <optgroup label="وجهات سياحية">
+                <option value="Abha,SA" data-brief="عروس الجبل وسيدة الضباب">أبها</option>
+                <option value="Ad Dayir,SA" data-brief="عاصمة البن وجمال الجبال">الداير بني مالك</option>
+                <option value="Socotra,YE" data-brief="جوهرة المحيط وأغرب جزيرة في العالم">سقطرى</option>
+                <option value="Salalah,OM" data-brief="أرض اللبان وجمال الخريف">صلالة</option>
+                <option value="Hawf,YE" data-brief="غابة اليمن المعلقة على البحر">حوف المهرة</option>
+            </optgroup>
+            <optgroup label="العواصم العربية">
+                <option value="Riyadh,SA" data-brief="منارة نجد وعاصمة الحزم">الرياض</option>
+                <option value="Cairo,EG" data-brief="قاهرة المعز ومدينة الألف مئذنة">القاهرة</option>
+                <option value="Amman,JO" data-brief="مدينة الجبال السبعة">عمان</option>
+                <option value="Baghdad,IQ" data-brief="دار السلام وعاصمة الرشيد">بغداد</option>
+                <option value="Kuwait City,KW" data-brief="لؤلؤة الخليج العربي">الكويت</option>
+                <option value="Doha,QA" data-brief="دوحة الخير والجمال">الدوحة</option>
+                <option value="Abu Dhabi,AE" data-brief="عاصمة الإبداع والتميز">أبوظبي</option>
+                <option value="Muscat,OM" data-brief="مدينة الهدوء والتراث">مسقط</option>
+                <option value="Manama,BH" data-brief="لؤلؤة البحرين">المنامة</option>
+            </optgroup>
         </select>
     </div>
 
@@ -151,7 +175,7 @@
 <audio id="adhan-audio"></audio>
 
 <script>
-    const STORAGE_KEY = 'safaa_app_settings';
+    const STORAGE_KEY = 'safaa_app_v2_settings';
     const API_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
     const MUEZZINS = {
         qatami: "https://server8.mp3quran.net/atha/Ar-001.mp3",
@@ -167,19 +191,19 @@
     };
 
     let prayerTimes = {};
+    let adhanPlayed = false;
 
     function showMsg(msg) {
         const n = document.getElementById('notification');
         n.textContent = msg; n.classList.add('show');
-        setTimeout(() => n.classList.remove('show'), 3000);
+        setTimeout(() => n.classList.remove('show'), 4000);
     }
 
-    // حفظ واسترجاع الإعدادات
     function saveSettings() { localStorage.setItem(STORAGE_KEY, JSON.stringify(settings)); }
+    
     function loadSettings() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) settings = JSON.parse(saved);
-        
         document.getElementById('city-select').value = settings.city;
         document.getElementById('muezzin-select').value = settings.muezzin;
         updateButtonsUI();
@@ -192,9 +216,14 @@
     }
 
     async function fetchData() {
-        const [city, country] = settings.city.split(',');
+        const selectedOption = document.getElementById('city-select').selectedOptions[0];
+        const cityValue = settings.city;
+        const brief = selectedOption.getAttribute('data-brief');
+        const [city, country] = cityValue.split(',');
+
+        document.getElementById('city-brief').textContent = brief;
+
         try {
-            // الطقس
             const wRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_WEATHER}&units=metric&lang=ar`);
             const wData = await wRes.json();
             if(wData.main) {
@@ -202,14 +231,13 @@
                 document.getElementById('w-desc').textContent = wData.weather[0].description;
             }
 
-            // المواقيت
             const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
             const pData = await pRes.json();
             prayerTimes = pData.data.timings;
-            document.getElementById('header-date').textContent = pData.data.date.hijri.date;
-            document.getElementById('info-name').textContent = "مواقيت " + document.getElementById('city-select').selectedOptions[0].text;
+            document.getElementById('header-date').textContent = pData.data.date.hijri.month.ar + " " + pData.data.date.hijri.year + " هـ";
+            document.getElementById('info-name').textContent = "مواقيت " + selectedOption.text;
             renderPrayers();
-        } catch (e) { showMsg("⚠️ تعذر جلب البيانات"); }
+        } catch (e) { showMsg("⚠️ خطأ في الاتصال"); }
     }
 
     function renderPrayers() {
@@ -234,35 +262,38 @@
 
         for (let id in pNames) {
             const [h, m] = prayerTimes[id].split(':');
-            const pTime = new Date(); pTime.setHours(h, m, 0);
+            const pTime = new Date(); pTime.setHours(parseInt(h), parseInt(m), 0);
             if (pTime > now) { next = { id, time: pTime }; break; }
         }
 
-        if (!next) { // إذا انتهت صلوات اليوم، الانتقال لفجر الغد
+        if (!next) {
             const [h, m] = prayerTimes.Fajr.split(':');
-            const pTime = new Date(); pTime.setDate(pTime.getDate() + 1); pTime.setHours(h, m, 0);
+            const pTime = new Date(); pTime.setDate(pTime.getDate() + 1); pTime.setHours(parseInt(h), parseInt(m), 0);
             next = { id: 'Fajr', time: pTime };
         }
 
-        // تمييز الصلاة الحالية
         document.querySelectorAll('.prayer-item').forEach(i => i.classList.remove('active'));
         if(document.getElementById('p-'+next.id)) document.getElementById('p-'+next.id).classList.add('active');
 
         const diff = next.time - now;
+        
+        if (diff <= 1000 && diff > 0 && !adhanPlayed) {
+            if (settings.adhan) {
+                const audio = document.getElementById('adhan-audio');
+                audio.src = MUEZZINS[settings.muezzin];
+                audio.play().catch(e => console.log("تحتاج تفاعل لتشغيل الصوت"));
+            }
+            if(settings.notif) showMsg("🕌 حان الآن وقت صلاة " + pNames[next.id]);
+            adhanPlayed = true;
+            setTimeout(() => { adhanPlayed = false; }, 60000);
+        }
+
         const hh = Math.floor(diff/3600000).toString().padStart(2,'0');
         const mm = Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
         const ss = Math.floor((diff%60000)/1000).toString().padStart(2,'0');
 
         document.getElementById('timer').textContent = `${hh}:${mm}:${ss}`;
         document.getElementById('next-p-name').textContent = pNames[next.id];
-
-        // تشغيل الأذان عند الصفر
-        if (diff < 1000 && diff > 0 && settings.adhan) {
-            const audio = document.getElementById('adhan-audio');
-            audio.src = MUEZZINS[settings.muezzin];
-            audio.play();
-            if(settings.notif) showMsg("🕌 حان الآن وقت صلاة " + pNames[next.id]);
-        }
     }
 
     function toggleNotif() { settings.notif = !settings.notif; saveSettings(); updateButtonsUI(); }
@@ -282,6 +313,8 @@
         loadSettings();
         fetchData();
         setInterval(updateTimer, 1000);
+        // تحديث البيانات كل ساعة تلقائياً
+        setInterval(fetchData, 3600000);
     };
 </script>
 </body>
