@@ -335,5 +335,46 @@
         setInterval(fetchData, 3600000);
     };
 </script>
+    <script>
+    function checkPrayerTime() {
+    // 1. فحص زر التفعيل (تأكد أن id الزر في ملفك هو azanStatus)
+    let azanSwitch = document.getElementById("Adhan-audio"); 
+    if (azanSwitch && !azanSwitch.checked) {
+        return; // توقف فوراً إذا كان الزر مغلقاً
+    }
+
+    let now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    
+    let ampm = hours >= 12 ? 'م' : 'ص'; 
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    
+    let strHours = hours < 10 ? '0' + hours : hours;
+    let strMinutes = minutes < 10 ? '0' + minutes : minutes;
+    
+    let currentTime = strHours + ":" + strMinutes + " " + ampm;
+
+    // إرسال الإشارة لسكتشوير عند مطابقة الوقت
+    if (typeof fajrTime !== 'undefined' && currentTime === fajrTime) {
+        window.location.href = "prayertime://play?name=Fajr";
+    }
+    if (typeof dhuhrTime !== 'undefined' && currentTime === dhuhrTime) {
+        window.location.href = "prayertime://play?name=Dhuhr";
+    }
+    if (typeof asrTime !== 'undefined' && currentTime === asrTime) {
+        window.location.href = "prayertime://play?name=Asr";
+    }
+    if (typeof maghribTime !== 'undefined' && currentTime === maghribTime) {
+        window.location.href = "prayertime://play?name=Maghrib";
+    }
+    if (typeof ishaTime !== 'undefined' && currentTime === ishaTime) {
+        window.location.href = "prayertime://play?name=Isha";
+    }
+}
+
+</script>
+    
 </body>
 </html>
