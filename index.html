@@ -3,88 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2d2d2d">
+    <meta name="theme-color" content="#1a1a1a">
     <title>صفاء الروح | مواقيت الصلاة والطقس</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-dark: #2d2d2d;
-            --primary-darker: #1a1a1a;
+            --primary-dark: #1a1a1a;
+            --card-bg: #262626;
             --accent-gold: #f4d03f;
+            --gold-glow: 0 0 15px rgba(244, 208, 63, 0.4);
             --text-primary: #ffffff;
             --text-secondary: #b0b0b0;
-            --shadow: 0 10px 25px rgba(0,0,0,0.3);
+            --inner-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -1px -1px 3px rgba(255,255,255,0.05);
+            --outer-shadow: 8px 8px 16px #0d0d0d, -4px -4px 12px #2d2d2d;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: #1a1a1a;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; padding-bottom: 220px; color: var(--text-primary);
         }
 
         .top-header {
-            background: linear-gradient(135deg, rgba(45, 45, 45, 0.98), rgba(26, 26, 26, 0.95));
+            background: linear-gradient(145deg, #222, #111);
             height: 160px; width: 100%; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5); border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-bottom: 3px solid var(--accent-gold);
         }
 
-        .header-title { font-weight: 900; font-size: 1.8rem; color: var(--accent-gold); margin: 5px 0; }
+        .header-title { 
+            font-weight: 900; font-size: 2rem; color: var(--accent-gold); 
+            text-shadow: 0 0 10px rgba(244, 208, 63, 0.5);
+        }
 
-        .main-container { width: 92%; max-width: 480px; margin-top: 25px; display: flex; flex-direction: column; gap: 15px; }
+        .main-container { width: 92%; max-width: 480px; margin-top: 25px; display: flex; flex-direction: column; gap: 20px; }
 
         .info-card {
-            background: #2d2d2d; padding: 20px; border-radius: 22px;
-            box-shadow: var(--shadow); border-right: 6px solid var(--accent-gold); text-align: right;
+            background: var(--card-bg); padding: 25px; border-radius: 25px;
+            box-shadow: var(--outer-shadow); border: 1px solid rgba(244, 208, 63, 0.2);
+            position: relative; overflow: hidden;
+        }
+        
+        .info-card::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: rotate(45deg); pointer-events: none;
         }
 
-        .weather-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px; }
-        .weather-temp { font-size: 2.2rem; font-weight: 900; color: var(--accent-gold); }
+        .weather-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .weather-temp { font-size: 2.5rem; font-weight: 900; color: var(--accent-gold); text-shadow: var(--gold-glow); }
 
-        .selector-box { background: #2d2d2d; padding: 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .selector-box { 
+            background: var(--card-bg); padding: 5px; border-radius: 18px; 
+            box-shadow: var(--inner-shadow); border: 1px solid #333;
+        }
         .selector-box select { 
             width: 100%; border: none; font-family: 'Tajawal'; font-weight: 800;
-            background: rgba(255,255,255,0.05); color: #fff; padding: 12px; border-radius: 10px; outline: none;
+            background: transparent; color: #fff; padding: 15px; border-radius: 15px; outline: none;
         }
 
         .countdown-timer {
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a); 
-            padding: 20px; border-radius: 18px; text-align: center; border: 2px solid var(--accent-gold);
+            background: linear-gradient(145deg, #262626, #161616); 
+            padding: 25px; border-radius: 25px; text-align: center; 
+            border: 2px solid var(--accent-gold); box-shadow: var(--gold-glow), var(--outer-shadow);
         }
-        #timer { display: block; color: var(--accent-gold); font-size: 2rem; font-weight: 900; margin-top: 10px; }
+        #timer { display: block; color: var(--accent-gold); font-size: 2.2rem; font-weight: 900; margin-top: 10px; letter-spacing: 2px; }
 
-        .prayer-list { display: flex; flex-direction: column; gap: 10px; }
+        .prayer-list { display: flex; flex-direction: column; gap: 12px; }
         .prayer-item {
-            background: #2d2d2d; padding: 15px 20px; border-radius: 15px;
+            background: var(--card-bg); padding: 18px 25px; border-radius: 18px;
             display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+            box-shadow: var(--outer-shadow); border: 1px solid rgba(255,255,255,0.02);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .prayer-item.active { border: 2px solid var(--accent-gold); background: rgba(244, 208, 63, 0.1); transform: scale(1.02); }
+        .prayer-item.active { 
+            border: 1px solid var(--accent-gold); background: rgba(244, 208, 63, 0.05); 
+            transform: scale(1.03); box-shadow: 0 0 20px rgba(244, 208, 63, 0.2);
+        }
+        .prayer-item b { color: var(--accent-gold); font-size: 1.1rem; }
 
         .fixed-controls {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(45, 45, 45, 0.98);
-            padding: 15px; border-top: 3px solid var(--accent-gold); z-index: 1000;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px); padding: 20px; border-top: 2px solid var(--accent-gold); z-index: 1000;
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.5);
         }
-        .controls-grid { max-width: 500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .controls-grid { max-width: 500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .control-btn {
-            background: #1a1a1a; border: 2px solid rgba(255,255,255,0.1); padding: 12px;
-            border-radius: 12px; color: #fff; font-family: 'Tajawal'; font-weight: 700; cursor: pointer;
+            background: #111; border: 1px solid #333; padding: 15px;
+            border-radius: 15px; color: #fff; font-family: 'Tajawal'; font-weight: 700; cursor: pointer;
+            box-shadow: var(--outer-shadow); transition: 0.3s;
         }
-        .control-btn.active { background: var(--accent-gold); color: #000; }
+        .control-btn.active { background: var(--accent-gold); color: #000; border-color: #fff; box-shadow: var(--gold-glow); }
 
         .muezzin-panel {
             display: none; align-items: center; justify-content: center; gap: 10px;
-            max-width: 500px; margin: 10px auto 0; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 12px;
+            max-width: 500px; margin: 15px auto 0; background: var(--inner-shadow); padding: 12px; border-radius: 15px;
         }
 
         .notification {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
-            background: #2d2d2d; padding: 15px 25px; border-radius: 15px; border-right: 5px solid var(--accent-gold);
-            z-index: 2000; transition: 0.4s; color: #fff;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-120px);
+            background: #333; padding: 18px 30px; border-radius: 20px; border: 2px solid var(--accent-gold);
+            z-index: 2000; transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); color: #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
         }
         .notification.show { transform: translateX(-50%) translateY(0); }
     </style>
@@ -95,7 +119,7 @@
 
 <div class="top-header">
     <div class="header-title">✨ صفاء الروح ✨</div>
-    <div id="header-date" style="font-family:'Amiri'; color: var(--text-secondary);">--</div>
+    <div id="header-date" style="font-family:'Amiri'; color: var(--text-secondary); margin-top: 5px;">--</div>
 </div>
 
 <div class="main-container">
@@ -105,10 +129,10 @@
                 <div id="w-temp" class="weather-temp">--°</div>
                 <div id="w-desc" style="color:var(--text-secondary)">جاري التحميل...</div>
             </div>
-            <i id="w-icon" class="fas fa-sun fa-3x" style="color:var(--accent-gold)"></i>
+            <i id="w-icon" class="fas fa-sun fa-3x" style="color:var(--accent-gold); filter: drop-shadow(0 0 10px rgba(244,208,63,0.5))"></i>
         </div>
-        <h2 id="info-name" style="color:var(--accent-gold)">مواقيت الصلاة</h2>
-        <p id="city-brief" style="font-size:0.9rem; color:var(--accent-gold); margin-top:5px; font-style: italic;">--</p>
+        <h2 id="info-name" style="color:var(--accent-gold); font-weight: 900;">مواقيت الصلاة</h2>
+        <p id="city-brief" style="font-size:0.95rem; color:var(--text-secondary); margin-top:8px; line-height: 1.4;">--</p>
     </div>
 
     <div class="selector-box">
@@ -116,36 +140,36 @@
             <optgroup label="المقدسات">
                 <option value="Makkah,SA" data-brief="قبلة المسلمين ومهبط الوحي">مكة المكرمة</option>
                 <option value="Madinah,SA" data-brief="طيبة الطيبة ودار هجرة المصطفى">المدينة المنورة</option>
-                <option value="Jerusalem,PS" data-brief="أولى القبلتين وثالث الحرمين">القدس الشريف</option>
+                <option value="Jerusalem,PS" data-brief="أولى القبلتين وثالث الحرمين الشريفين">القدس الشريف</option>
             </optgroup>
             <optgroup label="الجمهورية اليمنية">
-                <option value="Ataq,YE" data-brief="موطن التاريخ والحضارة الحميرية">شبوة</option>
-                <option value="Aden,YE" data-brief="ثغر اليمن الباسم ومدينة التعايش">عدن</option>
-                <option value="Sanaa,YE" data-brief="مدينة سام وروح اليمن العريقة">صنعاء</option>
-                <option value="Taiz,YE" data-brief="عاصمة الثقافة والجمال">تعز</option>
-                <option value="Al Mukalla,YE" data-brief="عروس بحر العرب وعاصمة حضرموت">المكلا</option>
-                <option value="Ibb,YE" data-brief="اللواء الأخضر وجنة الأرض">إب</option>
-                <option value="Al Hudaydah,YE" data-brief="عروس البحر الأحمر">الحديدة</option>
-                <option value="Marib,YE" data-brief="مملكة سبأ وعراقة الماضي">مأرب</option>
-                <option value="Dhamar,YE" data-brief="مدينة العلم والأدب">ذمار</option>
+                <option value="Ataq,YE" data-brief="موطن التاريخ والحضارة الحميرية العريقة">شبوة</option>
+                <option value="Aden,YE" data-brief="ثغر اليمن الباسم ومدينة الحب والتعايش">عدن</option>
+                <option value="Sanaa,YE" data-brief="مدينة سام وروح اليمن التاريخية العريقة">صنعاء</option>
+                <option value="Taiz,YE" data-brief="عاصمة الثقافة وقلب اليمن النابض">تعز</option>
+                <option value="Al Mukalla,YE" data-brief="عروس بحر العرب وعاصمة حضرموت الأبية">المكلا</option>
+                <option value="Ibb,YE" data-brief="اللواء الأخضر وجنة الأرض الساحرة">إب</option>
+                <option value="Al Hudaydah,YE" data-brief="عروس البحر الأحمر ومدينة النخيل">الحديدة</option>
+                <option value="Marib,YE" data-brief="مملكة سبأ وعراقة الماضي وحاضر الصمود">مأرب</option>
+                <option value="Dhamar,YE" data-brief="مدينة العلم والأدب وتاريخ الأصالة">ذمار</option>
             </optgroup>
             <optgroup label="وجهات سياحية">
-                <option value="Abha,SA" data-brief="عروس الجبل وسيدة الضباب">أبها</option>
-                <option value="Ad Dayir,SA" data-brief="عاصمة البن وجمال الجبال">الداير بني مالك</option>
-                <option value="Socotra,YE" data-brief="جوهرة المحيط وأغرب جزيرة في العالم">سقطرى</option>
-                <option value="Salalah,OM" data-brief="أرض اللبان وجمال الخريف">صلالة</option>
-                <option value="Hawf,YE" data-brief="غابة اليمن المعلقة على البحر">حوف المهرة</option>
+                <option value="Abha,SA" data-brief="عروس الجبل وسيدة الضباب الفاتنة">أبها</option>
+                <option value="Ad Dayir,SA" data-brief="عاصمة البن وجمال الجبال الشاهقة">الداير بني مالك</option>
+                <option value="Socotra,YE" data-brief="جوهرة المحيط الهندي وأغرب جزيرة في العالم">سقطرى</option>
+                <option value="Salalah,OM" data-brief="أرض اللبان وجمال الخريف الاستثنائي">صلالة</option>
+                <option value="Hawf,YE" data-brief="غابة اليمن المعلقة على شواطئ بحر العرب">حوف المهرة</option>
             </optgroup>
             <optgroup label="العواصم العربية">
-                <option value="Riyadh,SA" data-brief="منارة نجد وعاصمة الحزم">الرياض</option>
-                <option value="Cairo,EG" data-brief="قاهرة المعز ومدينة الألف مئذنة">القاهرة</option>
-                <option value="Amman,JO" data-brief="مدينة الجبال السبعة">عمان</option>
-                <option value="Baghdad,IQ" data-brief="دار السلام وعاصمة الرشيد">بغداد</option>
-                <option value="Kuwait City,KW" data-brief="لؤلؤة الخليج العربي">الكويت</option>
-                <option value="Doha,QA" data-brief="دوحة الخير والجمال">الدوحة</option>
-                <option value="Abu Dhabi,AE" data-brief="عاصمة الإبداع والتميز">أبوظبي</option>
-                <option value="Muscat,OM" data-brief="مدينة الهدوء والتراث">مسقط</option>
-                <option value="Manama,BH" data-brief="لؤلؤة البحرين">المنامة</option>
+                <option value="Riyadh,SA" data-brief="منارة نجد وعاصمة الحزم والطموح">الرياض</option>
+                <option value="Cairo,EG" data-brief="قاهرة المعز ومدينة الألف مئذنة وتاريخ الفراعنة">القاهرة</option>
+                <option value="Amman,JO" data-brief="مدينة الجبال السبعة وعراقة الهاشميين">عمان</option>
+                <option value="Baghdad,IQ" data-brief="دار السلام وعاصمة الرشيد ومهد الحضارة">بغداد</option>
+                <option value="Kuwait City,KW" data-brief="لؤلؤة الخليج العربي ومركز العطاء">الكويت</option>
+                <option value="Doha,QA" data-brief="دوحة الخير والجمال والتميز العالمي">الدوحة</option>
+                <option value="Abu Dhabi,AE" data-brief="عاصمة الإبداع والتميز والريادة">أبوظبي</option>
+                <option value="Muscat,OM" data-brief="مدينة الهدوء والسكينة والتراث الأصيل">مسقط</option>
+                <option value="Manama,BH" data-brief="لؤلؤة البحرين ومركز التجارة والتاريخ">المنامة</option>
             </optgroup>
         </select>
     </div>
@@ -175,7 +199,7 @@
 <audio id="adhan-audio"></audio>
 
 <script>
-    const STORAGE_KEY = 'safaa_app_v2_settings';
+    const STORAGE_KEY = 'safaa_app_v2_premium_settings';
     const API_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
     const MUEZZINS = {
         qatami: "https://server8.mp3quran.net/atha/Ar-001.mp3",
@@ -183,15 +207,18 @@
         sudais: "https://server11.mp3quran.net/sds/Ar-001.mp3"
     };
 
-    let settings = {
-        city: "Ataq,YE",
-        adhan: false,
-        notif: true,
-        muezzin: "qatami"
-    };
-
+    let settings = { city: "Ataq,YE", adhan: false, notif: true, muezzin: "qatami" };
     let prayerTimes = {};
     let adhanPlayed = false;
+
+    function formatTime12(time24) {
+        if(!time24) return "--:--";
+        let [h, m] = time24.split(':');
+        h = parseInt(h);
+        const period = h >= 12 ? 'م' : 'ص';
+        h = h % 12 || 12;
+        return `${h}:${m} ${period}`;
+    }
 
     function showMsg(msg) {
         const n = document.getElementById('notification');
@@ -217,9 +244,8 @@
 
     async function fetchData() {
         const selectedOption = document.getElementById('city-select').selectedOptions[0];
-        const cityValue = settings.city;
         const brief = selectedOption.getAttribute('data-brief');
-        const [city, country] = cityValue.split(',');
+        const [city, country] = settings.city.split(',');
 
         document.getElementById('city-brief').textContent = brief;
 
@@ -234,10 +260,10 @@
             const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
             const pData = await pRes.json();
             prayerTimes = pData.data.timings;
-            document.getElementById('header-date').textContent = pData.data.date.hijri.month.ar + " " + pData.data.date.hijri.year + " هـ";
+            document.getElementById('header-date').textContent = pData.data.date.hijri.day + " " + pData.data.date.hijri.month.ar + " " + pData.data.date.hijri.year + " هـ";
             document.getElementById('info-name').textContent = "مواقيت " + selectedOption.text;
             renderPrayers();
-        } catch (e) { showMsg("⚠️ خطأ في الاتصال"); }
+        } catch (e) { showMsg("⚠️ تعذر جلب البيانات"); }
     }
 
     function renderPrayers() {
@@ -249,7 +275,7 @@
             const item = document.createElement('div');
             item.className = 'prayer-item';
             item.id = "p-" + id;
-            item.innerHTML = `<span>${name}</span><b>${prayerTimes[id]}</b>`;
+            item.innerHTML = `<span>${name}</span><b>${formatTime12(prayerTimes[id])}</b>`;
             list.appendChild(item);
         });
     }
@@ -281,7 +307,7 @@
             if (settings.adhan) {
                 const audio = document.getElementById('adhan-audio');
                 audio.src = MUEZZINS[settings.muezzin];
-                audio.play().catch(e => console.log("تحتاج تفاعل لتشغيل الصوت"));
+                audio.play().catch(e => console.log("تفاعل مطلوب"));
             }
             if(settings.notif) showMsg("🕌 حان الآن وقت صلاة " + pNames[next.id]);
             adhanPlayed = true;
@@ -313,7 +339,6 @@
         loadSettings();
         fetchData();
         setInterval(updateTimer, 1000);
-        // تحديث البيانات كل ساعة تلقائياً
         setInterval(fetchData, 3600000);
     };
 </script>
