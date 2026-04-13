@@ -11,13 +11,12 @@
     <style>
         :root {
             --primary-dark: #1a1a1a;
-            --card-bg: #262626;
-            --accent-gold: #f4d03f;
-            --gold-glow: 0 0 15px rgba(244, 208, 63, 0.4);
+            --card-bg: #222222;
+            --accent-gold: #d4af37; /* ذهبي ملكي مطفي */
             --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --inner-shadow: inset 2px 2px 5px rgba(0,0,0,0.5), inset -1px -1px 3px rgba(255,255,255,0.05);
-            --outer-shadow: 8px 8px 16px #0d0d0d, -4px -4px 12px #2d2d2d;
+            --text-secondary: #999999;
+            --inner-shadow: inset 3px 3px 6px rgba(0,0,0,0.4), inset -1px -1px 3px rgba(255,255,255,0.02);
+            --outer-shadow: 10px 10px 20px #0a0a0a, -5px -5px 15px #2a2a2a;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
@@ -29,37 +28,30 @@
         }
 
         .top-header {
-            background: linear-gradient(145deg, #222, #111);
+            background: #1a1a1a;
             height: 160px; width: 100%; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-bottom: 3px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-bottom: 2px solid var(--accent-gold);
         }
 
         .header-title { 
             font-weight: 900; font-size: 2rem; color: var(--accent-gold); 
-            text-shadow: 0 0 10px rgba(244, 208, 63, 0.5);
+            letter-spacing: 1px;
         }
 
         .main-container { width: 92%; max-width: 480px; margin-top: 25px; display: flex; flex-direction: column; gap: 20px; }
 
         .info-card {
-            background: var(--card-bg); padding: 25px; border-radius: 25px;
-            box-shadow: var(--outer-shadow); border: 1px solid rgba(244, 208, 63, 0.2);
-            position: relative; overflow: hidden;
-        }
-        
-        .info-card::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            transform: rotate(45deg); pointer-events: none;
+            background: var(--card-bg); padding: 25px; border-radius: 28px;
+            box-shadow: var(--outer-shadow); border: 1px solid #333;
         }
 
         .weather-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
-        .weather-temp { font-size: 2.5rem; font-weight: 900; color: var(--accent-gold); text-shadow: var(--gold-glow); }
+        .weather-temp { font-size: 2.8rem; font-weight: 900; color: var(--accent-gold); }
 
         .selector-box { 
-            background: var(--card-bg); padding: 5px; border-radius: 18px; 
-            box-shadow: var(--inner-shadow); border: 1px solid #333;
+            background: #181818; padding: 5px; border-radius: 20px; 
+            box-shadow: var(--inner-shadow); border: 1px solid #282828;
         }
         .selector-box select { 
             width: 100%; border: none; font-family: 'Tajawal'; font-weight: 800;
@@ -67,48 +59,49 @@
         }
 
         .countdown-timer {
-            background: linear-gradient(145deg, #262626, #161616); 
-            padding: 25px; border-radius: 25px; text-align: center; 
-            border: 2px solid var(--accent-gold); box-shadow: var(--gold-glow), var(--outer-shadow);
+            background: var(--card-bg); padding: 25px; border-radius: 28px; text-align: center; 
+            border: 1px solid var(--accent-gold); box-shadow: var(--outer-shadow);
         }
-        #timer { display: block; color: var(--accent-gold); font-size: 2.2rem; font-weight: 900; margin-top: 10px; letter-spacing: 2px; }
+        #timer { display: block; color: var(--accent-gold); font-size: 2.4rem; font-weight: 900; margin-top: 10px; letter-spacing: 2px; }
 
-        .prayer-list { display: flex; flex-direction: column; gap: 12px; }
+        .prayer-list { display: flex; flex-direction: column; gap: 15px; }
         .prayer-item {
-            background: var(--card-bg); padding: 18px 25px; border-radius: 18px;
+            background: var(--card-bg); padding: 20px 25px; border-radius: 20px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: var(--outer-shadow); border: 1px solid rgba(255,255,255,0.02);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--outer-shadow); border: 1px solid #2a2a2a;
+            transition: 0.3s ease;
         }
         .prayer-item.active { 
-            border: 1px solid var(--accent-gold); background: rgba(244, 208, 63, 0.05); 
-            transform: scale(1.03); box-shadow: 0 0 20px rgba(244, 208, 63, 0.2);
+            border: 1px solid var(--accent-gold); 
+            background: rgba(212, 175, 55, 0.03);
+            transform: translateY(-3px);
         }
-        .prayer-item b { color: var(--accent-gold); font-size: 1.1rem; }
+        .prayer-item b { color: var(--accent-gold); font-size: 1.15rem; }
 
         .fixed-controls {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(10px); padding: 20px; border-top: 2px solid var(--accent-gold); z-index: 1000;
-            box-shadow: 0 -10px 25px rgba(0,0,0,0.5);
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1a;
+            padding: 20px; border-top: 1px solid #333; z-index: 1000;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
         }
         .controls-grid { max-width: 500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .control-btn {
-            background: #111; border: 1px solid #333; padding: 15px;
-            border-radius: 15px; color: #fff; font-family: 'Tajawal'; font-weight: 700; cursor: pointer;
-            box-shadow: var(--outer-shadow); transition: 0.3s;
+            background: #222; border: 1px solid #333; padding: 16px;
+            border-radius: 18px; color: #fff; font-family: 'Tajawal'; font-weight: 700; cursor: pointer;
+            box-shadow: 5px 5px 10px #0d0d0d, -2px -2px 8px #2d2d2d; transition: 0.2s;
         }
-        .control-btn.active { background: var(--accent-gold); color: #000; border-color: #fff; box-shadow: var(--gold-glow); }
+        .control-btn.active { background: var(--accent-gold); color: #000; border-color: transparent; font-weight: 900; }
 
         .muezzin-panel {
             display: none; align-items: center; justify-content: center; gap: 10px;
-            max-width: 500px; margin: 15px auto 0; background: var(--inner-shadow); padding: 12px; border-radius: 15px;
+            max-width: 500px; margin: 15px auto 0; background: #111; padding: 12px; border-radius: 15px;
+            box-shadow: var(--inner-shadow);
         }
 
         .notification {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-120px);
-            background: #333; padding: 18px 30px; border-radius: 20px; border: 2px solid var(--accent-gold);
-            z-index: 2000; transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); color: #fff;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            position: fixed; top: 25px; left: 50%; transform: translateX(-50%) translateY(-150px);
+            background: #222; padding: 20px 35px; border-radius: 22px; border-right: 5px solid var(--accent-gold);
+            z-index: 2000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #fff;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
         }
         .notification.show { transform: translateX(-50%) translateY(0); }
     </style>
@@ -119,7 +112,7 @@
 
 <div class="top-header">
     <div class="header-title">✨ صفاء الروح ✨</div>
-    <div id="header-date" style="font-family:'Amiri'; color: var(--text-secondary); margin-top: 5px;">--</div>
+    <div id="header-date" style="font-family:'Amiri'; color: var(--text-secondary); margin-top: 5px; font-size: 1.1rem;">--</div>
 </div>
 
 <div class="main-container">
@@ -129,10 +122,10 @@
                 <div id="w-temp" class="weather-temp">--°</div>
                 <div id="w-desc" style="color:var(--text-secondary)">جاري التحميل...</div>
             </div>
-            <i id="w-icon" class="fas fa-sun fa-3x" style="color:var(--accent-gold); filter: drop-shadow(0 0 10px rgba(244,208,63,0.5))"></i>
+            <i id="w-icon" class="fas fa-sun fa-3x" style="color:var(--accent-gold);"></i>
         </div>
-        <h2 id="info-name" style="color:var(--accent-gold); font-weight: 900;">مواقيت الصلاة</h2>
-        <p id="city-brief" style="font-size:0.95rem; color:var(--text-secondary); margin-top:8px; line-height: 1.4;">--</p>
+        <h2 id="info-name" style="color:var(--accent-gold); font-weight: 900; letter-spacing: 0.5px;">مواقيت الصلاة</h2>
+        <p id="city-brief" style="font-size:0.95rem; color:var(--text-secondary); margin-top:8px; line-height: 1.5; font-weight: 500;">--</p>
     </div>
 
     <div class="selector-box">
@@ -143,9 +136,9 @@
                 <option value="Jerusalem,PS" data-brief="أولى القبلتين وثالث الحرمين الشريفين">القدس الشريف</option>
             </optgroup>
             <optgroup label="الجمهورية اليمنية">
-                <option value="Ataq,YE" data-brief="موطن التاريخ والحضارة الحميرية العريقة">شبوة</option>
+                <option value="Ataq,YE" data-brief="موطن التاريخ وحضارة حمير العريقة">شبوة</option>
                 <option value="Aden,YE" data-brief="ثغر اليمن الباسم ومدينة الحب والتعايش">عدن</option>
-                <option value="Sanaa,YE" data-brief="مدينة سام وروح اليمن التاريخية العريقة">صنعاء</option>
+                <option value="Sanaa,YE" data-brief="مدينة سام وروح اليمن التاريخية">صنعاء</option>
                 <option value="Taiz,YE" data-brief="عاصمة الثقافة وقلب اليمن النابض">تعز</option>
                 <option value="Al Mukalla,YE" data-brief="عروس بحر العرب وعاصمة حضرموت الأبية">المكلا</option>
                 <option value="Ibb,YE" data-brief="اللواء الأخضر وجنة الأرض الساحرة">إب</option>
@@ -162,7 +155,7 @@
             </optgroup>
             <optgroup label="العواصم العربية">
                 <option value="Riyadh,SA" data-brief="منارة نجد وعاصمة الحزم والطموح">الرياض</option>
-                <option value="Cairo,EG" data-brief="قاهرة المعز ومدينة الألف مئذنة وتاريخ الفراعنة">القاهرة</option>
+                <option value="Cairo,EG" data-brief="قاهرة المعز ومدينة الألف مئذنة">القاهرة</option>
                 <option value="Amman,JO" data-brief="مدينة الجبال السبعة وعراقة الهاشميين">عمان</option>
                 <option value="Baghdad,IQ" data-brief="دار السلام وعاصمة الرشيد ومهد الحضارة">بغداد</option>
                 <option value="Kuwait City,KW" data-brief="لؤلؤة الخليج العربي ومركز العطاء">الكويت</option>
@@ -199,7 +192,7 @@
 <audio id="adhan-audio"></audio>
 
 <script>
-    const STORAGE_KEY = 'safaa_app_v2_premium_settings';
+    const STORAGE_KEY = 'safaa_app_v2_matte_settings';
     const API_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
     const MUEZZINS = {
         qatami: "https://server8.mp3quran.net/atha/Ar-001.mp3",
@@ -263,7 +256,7 @@
             document.getElementById('header-date').textContent = pData.data.date.hijri.day + " " + pData.data.date.hijri.month.ar + " " + pData.data.date.hijri.year + " هـ";
             document.getElementById('info-name').textContent = "مواقيت " + selectedOption.text;
             renderPrayers();
-        } catch (e) { showMsg("⚠️ تعذر جلب البيانات"); }
+        } catch (e) { showMsg("⚠️ خطأ في جلب البيانات"); }
     }
 
     function renderPrayers() {
@@ -307,7 +300,7 @@
             if (settings.adhan) {
                 const audio = document.getElementById('adhan-audio');
                 audio.src = MUEZZINS[settings.muezzin];
-                audio.play().catch(e => console.log("تفاعل مطلوب"));
+                audio.play().catch(e => console.log("Audio needs interaction"));
             }
             if(settings.notif) showMsg("🕌 حان الآن وقت صلاة " + pNames[next.id]);
             adhanPlayed = true;
