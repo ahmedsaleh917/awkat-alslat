@@ -91,12 +91,6 @@
         }
         .control-btn.active { background: var(--accent-gold); color: #000; border-color: transparent; font-weight: 900; }
 
-        .muezzin-panel {
-            display: none; align-items: center; justify-content: center; gap: 10px;
-            max-width: 500px; margin: 15px auto 0; background: #111; padding: 12px; border-radius: 15px;
-            box-shadow: var(--inner-shadow);
-        }
-
         .notification {
             position: fixed; top: 25px; left: 50%; transform: translateX(-50%) translateY(-150px);
             background: #222; padding: 20px 35px; border-radius: 22px; border-right: 5px solid var(--accent-gold);
@@ -180,13 +174,6 @@
         <button id="btn-notif" class="control-btn active" onclick="toggleNotif()">🔔 التنبيهات</button>
         <button id="btn-adhan" class="control-btn" onclick="toggleAdhanUI()">🔊 الأذان</button>
     </div>
-    <div id="muezzin-panel" class="muezzin-panel">
-        <select id="muezzin-select" style="flex:1; padding:8px; border-radius:8px; background:#1a1a1a; color:#fff; border:1px solid var(--accent-gold);">
-            <option value="qatami">ناصر القطامي</option>
-            <option value="alafasy">مشاري العفاسي</option>
-            <option value="sudais">عبدالرحمن السديس</option>
-        </select>
-    </div>
 </div>
 
 <audio id="adhan-audio"></audio>
@@ -225,14 +212,12 @@
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) settings = JSON.parse(saved);
         document.getElementById('city-select').value = settings.city;
-        document.getElementById('muezzin-select').value = settings.muezzin;
         updateButtonsUI();
     }
 
     function updateButtonsUI() {
         document.getElementById('btn-notif').classList.toggle('active', settings.notif);
         document.getElementById('btn-adhan').classList.toggle('active', settings.adhan);
-        document.getElementById('muezzin-panel').style.display = settings.adhan ? 'flex' : 'none';
     }
 
     async function fetchData() {
@@ -323,11 +308,6 @@
         saveSettings(); fetchData();
     };
 
-    document.getElementById('muezzin-select').onchange = (e) => {
-        settings.muezzin = e.target.value;
-        saveSettings();
-    };
-
     window.onload = () => {
         loadSettings();
         fetchData();
@@ -335,12 +315,11 @@
         setInterval(fetchData, 3600000);
     };
 </script>
-    <script>
+<script>
     function checkPrayerTime() {
-    // 1. فحص زر التفعيل (تأكد أن id الزر في ملفك هو azanStatus)
     let azanSwitch = document.getElementById("Adhan-audio"); 
     if (azanSwitch && !azanSwitch.checked) {
-        return; // توقف فوراً إذا كان الزر مغلقاً
+        return; 
     }
 
     let now = new Date();
@@ -356,7 +335,6 @@
     
     let currentTime = strHours + ":" + strMinutes + " " + ampm;
 
-    // إرسال الإشارة لسكتشوير عند مطابقة الوقت
     if (typeof fajrTime !== 'undefined' && currentTime === fajrTime) {
         window.location.href = "prayertime://play?name=Fajr";
     }
@@ -373,7 +351,6 @@
         window.location.href = "prayertime://play?name=Isha";
     }
 }
-
 </script>
     
 </body>
