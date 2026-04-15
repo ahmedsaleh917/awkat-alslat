@@ -2,111 +2,100 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a1a">
     <title>صفاء الروح | مواقيت الصلاة والطقس</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/zGSvxgCn/1775323811617.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
             --primary-dark: #1a1a1a;
             --card-bg: #222222;
-            --accent-gold: #d4af37; /* ذهبي ملكي مطفي */
+            --accent-gold: #d4af37;
+            --accent-gold-light: #ffd700;
             --text-primary: #ffffff;
             --text-secondary: #999999;
             --inner-shadow: inset 3px 3px 6px rgba(0,0,0,0.4), inset -1px -1px 3px rgba(255,255,255,0.02);
             --outer-shadow: 10px 10px 20px #0a0a0a, -5px -5px 15px #2a2a2a;
+            --shadow-gold: 0 6px 20px rgba(212, 175, 55, 0.3);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; transition: all 0.2s ease; }
         body {
             font-family: 'Tajawal', sans-serif;
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; padding-bottom: 220px; color: var(--text-primary);
+            min-height: 100vh; padding-bottom: 50px; color: var(--text-primary);
         }
 
         .top-header {
-            background: #1a1a1a;
+            background: linear-gradient(135deg, rgba(45, 45, 45, 0.98), rgba(26, 26, 26, 0.95));
             height: 160px; width: 100%; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6); border-bottom: 2px solid var(--accent-gold);
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .header-title { 
-            font-weight: 900; font-size: 2rem; color: var(--accent-gold); 
-            letter-spacing: 1px;
-        }
+        .header-title { font-weight: 900; font-size: 2rem; color: var(--accent-gold); text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3); }
+        #header-date { font-family: 'Amiri', serif; color: var(--text-secondary); margin-top: 5px; font-size: 1.1rem; }
 
         .main-container { width: 92%; max-width: 480px; margin-top: 25px; display: flex; flex-direction: column; gap: 20px; }
 
         .info-card {
             background: var(--card-bg); padding: 25px; border-radius: 28px;
             box-shadow: var(--outer-shadow); border: 1px solid #333;
+            position: relative; overflow: hidden;
+        }
+        .info-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
         }
 
         .weather-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
         .weather-temp { font-size: 2.8rem; font-weight: 900; color: var(--accent-gold); }
 
-        .selector-box { 
-            background: #181818; padding: 5px; border-radius: 20px; 
-            box-shadow: var(--inner-shadow); border: 1px solid #282828;
-        }
+        .selector-box { background: #181818; padding: 5px; border-radius: 20px; box-shadow: var(--inner-shadow); border: 1px solid #282828; }
         .selector-box select { 
-            width: 100%; border: none; font-family: 'Tajawal'; font-weight: 800;
+            width: 100%; border: none; font-family: 'Tajawal', sans-serif; font-weight: 800;
             background: transparent; color: #fff; padding: 15px; border-radius: 15px; outline: none;
+            appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 15px center;
         }
 
         .countdown-timer {
             background: var(--card-bg); padding: 25px; border-radius: 28px; text-align: center; 
             border: 1px solid var(--accent-gold); box-shadow: var(--outer-shadow);
         }
-        #timer { display: block; color: var(--accent-gold); font-size: 2.4rem; font-weight: 900; margin-top: 10px; letter-spacing: 2px; }
+        #timer { display: block; color: var(--accent-gold); font-size: 2.4rem; font-weight: 900; margin-top: 10px; }
 
         .prayer-list { display: flex; flex-direction: column; gap: 15px; }
         .prayer-item {
             background: var(--card-bg); padding: 20px 25px; border-radius: 20px;
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: var(--outer-shadow); border: 1px solid #2a2a2a;
-            transition: 0.3s ease;
         }
         .prayer-item.active { 
-            border: 1px solid var(--accent-gold); 
-            background: rgba(212, 175, 55, 0.03);
-            transform: translateY(-3px);
+            border: 2px solid var(--accent-gold); 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+            box-shadow: var(--shadow-gold);
         }
-        .prayer-item b { color: var(--accent-gold); font-size: 1.15rem; }
+        .prayer-item b { color: var(--accent-gold); font-size: 1.15rem; font-weight: 800; }
 
-        .fixed-controls {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1a;
-            padding: 20px; border-top: 1px solid #333; z-index: 1000;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-        }
-        .controls-grid { max-width: 500px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .control-btn {
-            background: #222; border: 1px solid #333; padding: 16px;
-            border-radius: 18px; color: #fff; font-family: 'Tajawal'; font-weight: 700; cursor: pointer;
-            box-shadow: 5px 5px 10px #0d0d0d, -2px -2px 8px #2d2d2d; transition: 0.2s;
-        }
-        .control-btn.active { background: var(--accent-gold); color: #000; border-color: transparent; font-weight: 900; }
-
-        .notification {
-            position: fixed; top: 25px; left: 50%; transform: translateX(-50%) translateY(-150px);
-            background: #222; padding: 20px 35px; border-radius: 22px; border-right: 5px solid var(--accent-gold);
-            z-index: 2000; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #fff;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
-        }
-        .notification.show { transform: translateX(-50%) translateY(0); }
+        .footer { text-align: center; padding: 30px; font-size: 0.8rem; color: var(--text-secondary); }
+        .footer span { color: var(--accent-gold); font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div id="notification" class="notification"></div>
-
 <div class="top-header">
     <div class="header-title">✨ صفاء الروح ✨</div>
-    <div id="header-date" style="font-family:'Amiri'; color: var(--text-secondary); margin-top: 5px; font-size: 1.1rem;">--</div>
+    <div id="header-date">--</div>
 </div>
 
 <div class="main-container">
@@ -118,45 +107,22 @@
             </div>
             <i id="w-icon" class="fas fa-sun fa-3x" style="color:var(--accent-gold);"></i>
         </div>
-        <h2 id="info-name" style="color:var(--accent-gold); font-weight: 900; letter-spacing: 0.5px;">مواقيت الصلاة</h2>
-        <p id="city-brief" style="font-size:0.95rem; color:var(--text-secondary); margin-top:8px; line-height: 1.5; font-weight: 500;">--</p>
+        <h2 id="info-name" style="color:var(--accent-gold); font-weight: 900;">مواقيت الصلاة</h2>
+        <p id="city-brief" style="font-size:0.95rem; color:var(--text-secondary); margin-top:8px;">--</p>
     </div>
 
     <div class="selector-box">
         <select id="city-select">
-            <optgroup label="المقدسات">
-                <option value="Makkah,SA" data-brief="قبلة المسلمين ومهبط الوحي">مكة المكرمة</option>
-                <option value="Madinah,SA" data-brief="طيبة الطيبة ودار هجرة المصطفى">المدينة المنورة</option>
-                <option value="Jerusalem,PS" data-brief="أولى القبلتين وثالث الحرمين الشريفين">القدس الشريف</option>
-            </optgroup>
             <optgroup label="الجمهورية اليمنية">
                 <option value="Ataq,YE" data-brief="موطن التاريخ وحضارة حمير العريقة">شبوة</option>
                 <option value="Aden,YE" data-brief="ثغر اليمن الباسم ومدينة الحب والتعايش">عدن</option>
                 <option value="Sanaa,YE" data-brief="مدينة سام وروح اليمن التاريخية">صنعاء</option>
-                <option value="Taiz,YE" data-brief="عاصمة الثقافة وقلب اليمن النابض">تعز</option>
                 <option value="Al Mukalla,YE" data-brief="عروس بحر العرب وعاصمة حضرموت الأبية">المكلا</option>
-                <option value="Ibb,YE" data-brief="اللواء الأخضر وجنة الأرض الساحرة">إب</option>
-                <option value="Al Hudaydah,YE" data-brief="عروس البحر الأحمر ومدينة النخيل">الحديدة</option>
-                <option value="Marib,YE" data-brief="مملكة سبأ وعراقة الماضي وحاضر الصمود">مأرب</option>
-                <option value="Dhamar,YE" data-brief="مدينة العلم والأدب وتاريخ الأصالة">ذمار</option>
             </optgroup>
-            <optgroup label="وجهات سياحية">
-                <option value="Abha,SA" data-brief="عروس الجبل وسيدة الضباب الفاتنة">أبها</option>
-                <option value="Ad Dayir,SA" data-brief="عاصمة البن وجمال الجبال الشاهقة">الداير بني مالك</option>
-                <option value="Socotra,YE" data-brief="جوهرة المحيط الهندي وأغرب جزيرة في العالم">سقطرى</option>
-                <option value="Salalah,OM" data-brief="أرض اللبان وجمال الخريف الاستثنائي">صلالة</option>
-                <option value="Hawf,YE" data-brief="غابة اليمن المعلقة على شواطئ بحر العرب">حوف المهرة</option>
-            </optgroup>
-            <optgroup label="العواصم العربية">
-                <option value="Riyadh,SA" data-brief="منارة نجد وعاصمة الحزم والطموح">الرياض</option>
-                <option value="Cairo,EG" data-brief="قاهرة المعز ومدينة الألف مئذنة">القاهرة</option>
-                <option value="Amman,JO" data-brief="مدينة الجبال السبعة وعراقة الهاشميين">عمان</option>
-                <option value="Baghdad,IQ" data-brief="دار السلام وعاصمة الرشيد ومهد الحضارة">بغداد</option>
-                <option value="Kuwait City,KW" data-brief="لؤلؤة الخليج العربي ومركز العطاء">الكويت</option>
-                <option value="Doha,QA" data-brief="دوحة الخير والجمال والتميز العالمي">الدوحة</option>
-                <option value="Abu Dhabi,AE" data-brief="عاصمة الإبداع والتميز والريادة">أبوظبي</option>
-                <option value="Muscat,OM" data-brief="مدينة الهدوء والسكينة والتراث الأصيل">مسقط</option>
-                <option value="Manama,BH" data-brief="لؤلؤة البحرين ومركز التجارة والتاريخ">المنامة</option>
+            <optgroup label="المقدسات">
+                <option value="Makkah,SA" data-brief="قبلة المسلمين ومهبط الوحي">مكة المكرمة</option>
+                <option value="Madinah,SA" data-brief="طيبة الطيبة ودار هجرة المصطفى">المدينة المنورة</option>
+                <option value="Jerusalem,PS" data-brief="أولى القبلتين وثالث الحرمين الشريفين">القدس الشريف</option>
             </optgroup>
         </select>
     </div>
@@ -169,27 +135,17 @@
     <div id="prayer-list" class="prayer-list"></div>
 </div>
 
-<div class="fixed-controls">
-    <div class="controls-grid">
-        <button id="btn-notif" class="control-btn active" onclick="toggleNotif()">🔔 التنبيهات</button>
-        <button id="btn-adhan" class="control-btn" onclick="toggleAdhanUI()">🔊 الأذان</button>
-    </div>
-</div>
-
-<audio id="adhan-audio"></audio>
+<div class="footer">تطبيق <span>صفاء الروح</span> | sabriFX &copy; 2026</div>
 
 <script>
-    const STORAGE_KEY = 'safaa_app_v2_matte_settings';
+    const STORAGE_KEY = 'safaa_app_v2_simple_settings';
     const API_WEATHER = "a51243f7648b764f71f76f6cac8f9995";
-    const MUEZZINS = {
-        qatami: "https://server8.mp3quran.net/atha/Ar-001.mp3",
-        alafasy: "https://server7.mp3quran.net/afs/Ar-001.mp3",
-        sudais: "https://server11.mp3quran.net/sds/Ar-001.mp3"
-    };
+    
+    const OFFLINE_PRAYERS = { Fajr: "04:55", Dhuhr: "12:15", Asr: "15:35", Maghrib: "18:20", Isha: "19:40" };
+    const WEATHER_ICONS = { 'clear': 'fa-sun', 'clouds': 'fa-cloud-sun', 'rain': 'fa-cloud-rain', 'thunderstorm': 'fa-bolt' };
 
-    let settings = { city: "Ataq,YE", adhan: false, notif: true, muezzin: "qatami" };
-    let prayerTimes = {};
-    let adhanPlayed = false;
+    let settings = { city: "Ataq,YE" };
+    let prayerTimes = { ...OFFLINE_PRAYERS };
 
     function formatTime12(time24) {
         if(!time24) return "--:--";
@@ -200,55 +156,34 @@
         return `${h}:${m} ${period}`;
     }
 
-    function showMsg(msg) {
-        const n = document.getElementById('notification');
-        n.textContent = msg; n.classList.add('show');
-        setTimeout(() => n.classList.remove('show'), 4000);
-    }
-
-    function saveSettings() { localStorage.setItem(STORAGE_KEY, JSON.stringify(settings)); }
-    
-    function loadSettings() {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) settings = JSON.parse(saved);
-        document.getElementById('city-select').value = settings.city;
-        updateButtonsUI();
-    }
-
-    function updateButtonsUI() {
-        document.getElementById('btn-notif').classList.toggle('active', settings.notif);
-        document.getElementById('btn-adhan').classList.toggle('active', settings.adhan);
-    }
-
     async function fetchData() {
-        const selectedOption = document.getElementById('city-select').selectedOptions[0];
-        const brief = selectedOption.getAttribute('data-brief');
         const [city, country] = settings.city.split(',');
-
-        document.getElementById('city-brief').textContent = brief;
-
         try {
             const wRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_WEATHER}&units=metric&lang=ar`);
             const wData = await wRes.json();
             if(wData.main) {
                 document.getElementById('w-temp').textContent = Math.round(wData.main.temp) + "°";
                 document.getElementById('w-desc').textContent = wData.weather[0].description;
+                const iconClass = WEATHER_ICONS[wData.weather[0].main.toLowerCase()] || 'fa-sun';
+                document.getElementById('w-icon').className = `fas ${iconClass} fa-3x`;
             }
+        } catch(e) {}
 
+        try {
             const pRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4`);
             const pData = await pRes.json();
-            prayerTimes = pData.data.timings;
-            document.getElementById('header-date').textContent = pData.data.date.hijri.day + " " + pData.data.date.hijri.month.ar + " " + pData.data.date.hijri.year + " هـ";
-            document.getElementById('info-name').textContent = "مواقيت " + selectedOption.text;
-            renderPrayers();
-        } catch (e) { showMsg("⚠️ خطأ في جلب البيانات"); }
+            if(pData.data) {
+                prayerTimes = pData.data.timings;
+                document.getElementById('header-date').textContent = `${pData.data.date.hijri.day} ${pData.data.date.hijri.month.ar} ${pData.data.date.hijri.year} هـ`;
+                renderPrayers();
+            }
+        } catch(e) { renderPrayers(); }
     }
 
     function renderPrayers() {
         const list = document.getElementById('prayer-list');
         list.innerHTML = '';
         const names = { Fajr: 'الفجر', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
-        
         Object.entries(names).forEach(([id, name]) => {
             const item = document.createElement('div');
             item.className = 'prayer-item';
@@ -266,32 +201,20 @@
 
         for (let id in pNames) {
             const [h, m] = prayerTimes[id].split(':');
-            const pTime = new Date(); pTime.setHours(parseInt(h), parseInt(m), 0);
+            const pTime = new Date(); pTime.setHours(h, m, 0);
             if (pTime > now) { next = { id, time: pTime }; break; }
         }
 
         if (!next) {
             const [h, m] = prayerTimes.Fajr.split(':');
-            const pTime = new Date(); pTime.setDate(pTime.getDate() + 1); pTime.setHours(parseInt(h), parseInt(m), 0);
+            const pTime = new Date(); pTime.setDate(pTime.getDate() + 1); pTime.setHours(h, m, 0);
             next = { id: 'Fajr', time: pTime };
         }
 
         document.querySelectorAll('.prayer-item').forEach(i => i.classList.remove('active'));
-        if(document.getElementById('p-'+next.id)) document.getElementById('p-'+next.id).classList.add('active');
+        document.getElementById('p-'+next.id)?.classList.add('active');
 
         const diff = next.time - now;
-        
-        if (diff <= 1000 && diff > 0 && !adhanPlayed) {
-            if (settings.adhan) {
-                const audio = document.getElementById('adhan-audio');
-                audio.src = MUEZZINS[settings.muezzin];
-                audio.play().catch(e => console.log("Audio needs interaction"));
-            }
-            if(settings.notif) showMsg("🕌 حان الآن وقت صلاة " + pNames[next.id]);
-            adhanPlayed = true;
-            setTimeout(() => { adhanPlayed = false; }, 60000);
-        }
-
         const hh = Math.floor(diff/3600000).toString().padStart(2,'0');
         const mm = Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
         const ss = Math.floor((diff%60000)/1000).toString().padStart(2,'0');
@@ -300,61 +223,16 @@
         document.getElementById('next-p-name').textContent = pNames[next.id];
     }
 
-    function toggleNotif() { settings.notif = !settings.notif; saveSettings(); updateButtonsUI(); }
-    function toggleAdhanUI() { settings.adhan = !settings.adhan; saveSettings(); updateButtonsUI(); }
-
-    document.getElementById('city-select').onchange = (e) => {
+    document.getElementById('city-select').addEventListener('change', (e) => {
         settings.city = e.target.value;
-        saveSettings(); fetchData();
-    };
-
-    window.onload = () => {
-        loadSettings();
+        document.getElementById('city-brief').textContent = e.target.selectedOptions[0].getAttribute('data-brief');
         fetchData();
-        setInterval(updateTimer, 1000);
-        setInterval(fetchData, 3600000);
-    };
-</script>
-<script>
-    function checkPrayerTime() {
-        let azanSwitch = document.getElementById("Adhan-audio"); 
-        if (azanSwitch && !azanSwitch.checked) { return; }
-
-        let now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let ampm = hours >= 12 ? 'م' : 'ص'; 
-        hours = hours % 12 || 12; 
-        let strHours = hours < 10 ? '0' + hours : hours;
-        let strMinutes = minutes < 10 ? '0' + minutes : minutes;
-        let currentTime = strHours + ":" + strMinutes + " " + ampm;
-
-        const prayers = {
-            fajr: typeof fajrTime !== 'undefined' ? fajrTime : null,
-            dhuhr: typeof dhuhrTime !== 'undefined' ? dhuhrTime : null,
-            asr: typeof asrTime !== 'undefined' ? asrTime : null,
-            maghrib: typeof maghribTime !== 'undefined' ? maghribTime : null,
-            isha: typeof ishaTime !== 'undefined' ? ishaTime : null
-        };
-
-        for (let name in prayers) {
-            if (prayers[name] && currentTime === prayers[name]) {
-                window.location.href = "prayertime://play?name=" + name;
-                break; 
-            }
-        }
-    }
-
-    // إضافة مستمع الأحداث لزر الأذان لطلب الإذن فور التفعيل
-    document.getElementById("Adhan-audio").addEventListener('change', function() {
-        if(this.checked) {
-            // إرسال الإشارة لـ Sketchware لفتح نافذة إذن العمل في الخلفية
-            window.location.href = "prayertime://request_permissions";
-        }
     });
 
-    // الفحص التلقائي كل دقيقة
-    setInterval(checkPrayerTime, 60000);
+    window.onload = () => {
+        fetchData();
+        setInterval(updateTimer, 1000);
+    };
 </script>
 </body>
 </html>
